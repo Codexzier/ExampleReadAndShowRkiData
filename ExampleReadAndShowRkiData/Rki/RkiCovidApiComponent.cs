@@ -12,13 +12,13 @@ namespace ExampleReadAndShowRkiData.Rki
 
         private readonly string _address = "https://rki-covid-api.now.sh/api/";
 
-        public RkiCovidDistricts LoadAktualData()
+        public RkiCovidDistricts LoadAktualData(bool _updateDataFromInternet)
         {
             var date = DateTime.Today;
 
             var filename = $"{Environment.CurrentDirectory}/rki-corona-data-{date:d}.json";
 
-            if(File.Exists(filename))
+            if(File.Exists(filename) && !_updateDataFromInternet)
             {
                 return JsonConvert.DeserializeObject<RkiCovidDistricts>(File.ReadAllText(filename));
             }

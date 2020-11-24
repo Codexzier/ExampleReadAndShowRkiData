@@ -19,6 +19,8 @@ namespace ExampleReadAndShowRkiData
             this._viewModel.LoadRkiData = new CommandLoadRikiData(this._viewModel);
             this._viewModel.SearchDistrictMaxWeekIncidence = new CommandSearchDistrictMaxWeekIncidence(this._viewModel);
             this._viewModel.SortByWeekIncidence = new CommandSortByWeekIncidence(this._viewModel);
+            this._viewModel.LoadRkiDataFromInternet = new CommandLoadRikiData(this._viewModel, true);
+            this._viewModel.SortByDeath = new CommandSortByDeath(this._viewModel);
         }
 
         private void TextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)

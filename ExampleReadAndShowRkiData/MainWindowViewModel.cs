@@ -15,6 +15,8 @@ namespace ExampleReadAndShowRkiData
         private string _lastUpdate;
         private ICommand _searchDistrictMaxWeekIncidence;
         private ICommand _sortByWeekIncidence;
+        private ICommand _loadRkiDataFromInternet;
+        private ICommand _sortByDeath;
 
         public ObservableCollection<DistrictItem> Districts
         {
@@ -87,6 +89,24 @@ namespace ExampleReadAndShowRkiData
             {
                 this._sortByWeekIncidence = value;
                 this.OnPropertyChanged(nameof(this.SortByWeekIncidence));
+            }
+        }
+
+        public ICommand LoadRkiDataFromInternet
+        {
+            get => this._loadRkiDataFromInternet; set
+            {
+                this._loadRkiDataFromInternet = value;
+                this.OnPropertyChanged(nameof(this.LoadRkiDataFromInternet));
+            }
+        }
+
+        public ICommand SortByDeath
+        {
+            get => this._sortByDeath; set
+            {
+                this._sortByDeath = value;
+                this.OnPropertyChanged(nameof(this.SortByDeath));
             }
         }
 
