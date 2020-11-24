@@ -8,19 +8,22 @@ namespace ExampleReadAndShowRkiData.Rki
 {
     internal class RkiCovidApiComponent
     {
-        // https://rki-covid-api.now.sh/
-
         private readonly string _address = "https://rki-covid-api.now.sh/api/";
 
-        public RkiCovidDistricts LoadAktualData(bool _updateDataFromInternet)
+        public RkiCovidApiDistricts LoadAktualData(bool _updateDataFromInternet)
         {
             var filename = HelperExtension.CreateFilename();
 
-            if(File.Exists(filename) && !_updateDataFromInternet)
+            if (File.Exists(filename) && !_updateDataFromInternet)
             {
                 return this.LoadAktualData(filename);
             }
 
+            return this.LoadAktualDataFromInternet(filename);
+        }
+
+        private RkiCovidApiDistricts LoadAktualDataFromInternet(string filename)
+        {
             var client = new WebClient { BaseAddress = this._address };
             client.Headers[HttpRequestHeader.ContentType] = "application/json";
 
@@ -31,7 +34,7 @@ namespace ExampleReadAndShowRkiData.Rki
 
                 File.WriteAllText(filename, result);
 
-                return JsonConvert.DeserializeObject<RkiCovidDistricts>(result);
+                return JsonConvert.DeserializeObject<RkiCovidApiDistricts>(result);
             }
             catch (Exception e)
             {
@@ -41,9 +44,9 @@ namespace ExampleReadAndShowRkiData.Rki
             return null;
         }
 
-        internal RkiCovidDistricts LoadAktualData(string filename)
+        internal RkiCovidApiDistricts LoadAktualData(string filename)
         {
-            return JsonConvert.DeserializeObject<RkiCovidDistricts>(File.ReadAllText(filename));
+            return JsonConvert.DeserializeObject<RkiCovidApiDistricts>(File.ReadAllText(filename));
         }
     }
 

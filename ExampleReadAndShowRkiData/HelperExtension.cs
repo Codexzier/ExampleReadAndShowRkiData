@@ -8,7 +8,7 @@ namespace ExampleReadAndShowRkiData
 {
     public static class HelperExtension
     {
-        public static string BuildString(this RkiCovidApiCountryItem item)
+        public static string BuildString(this RkiCovidApiDistrictItem item)
         {
             return $"{item.name} - {item.weekIncidence:N2}";
         }
@@ -37,9 +37,9 @@ namespace ExampleReadAndShowRkiData
             return date;
         }
 
-        internal static IEnumerable<RkiCovidApiCountryItem> GetCountryResults(string name)
+        internal static IEnumerable<RkiCovidApiDistrictItem> GetCountryResults(string name)
         {
-            var list = new List<RkiCovidApiCountryItem>();
+            var list = new List<RkiCovidApiDistrictItem>();
             foreach (var filename in GetFiles())
             {
                 var result = new RkiCovidApiComponent()

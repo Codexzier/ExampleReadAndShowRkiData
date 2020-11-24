@@ -1,9 +1,9 @@
 ﻿namespace ExampleReadAndShowRkiData.Rki
 {
-    public class RkiCovidApiCountryItem
+    public class RkiCovidApiDistrictItem
     {
         public string name { get; set; }
-        public string country { get; set; }
+        public string county { get; set; }
         public int count { get; set; }
         public int deaths { get; set; }
         public double weekIncidence { get; set; }

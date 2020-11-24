@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ExampleReadAndShowRkiData"
+        xmlns:local="clr-namespace:ExampleReadAndShowRkiData" 
         mc:Ignorable="d"
         Title="Example RKI Corona Application" Height="450" Width="800">
     <Window.DataContext>
@@ -57,28 +57,29 @@
                      KeyUp="TextBox_KeyUp" />
             <ListBox Grid.Row="1" 
                      ItemsSource="{Binding Districts}" 
-                     SelectedItem="{Binding SelectedDistrict}" 
-                     SelectionChanged="ListBox_SelectionChanged" 
-                     HorizontalAlignment="Stretch">
+                     SelectedItem="{Binding SelectedDistrict}"
+                     SelectionChanged="ListBox_SelectionChanged"
+                                          HorizontalAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="DistrictItem">
-                        <Grid Width="400">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="250" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <Grid Width="400" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" 
+                                <TextBlock Grid.Column="0" 
                                        Text="{Binding Name}" />
-                            <TextBlock Grid.Column="1" 
+                                <TextBlock Grid.Column="1" 
                                        HorizontalAlignment="Right" 
                                        Text="{Binding WeekIncidence, Converter={StaticResource NumberFormatConverter}}"
                                        Margin="0 0 20 0"/>
-                            <TextBlock Grid.Column="2"
+                                <TextBlock Grid.Column="2"
                                        HorizontalAlignment="Right" 
                                        Text="{Binding Deaths}" />
                         </Grid>
+                        
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -106,7 +107,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" />
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Country" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="County" />
             <TextBlock Grid.Column="0" Grid.Row="2" Text="Count" />
             <TextBlock Grid.Column="0" Grid.Row="3" Text="Deaths" />
             <TextBlock Grid.Column="0" Grid.Row="4" Text="WeekIncidence" />
@@ -115,7 +116,7 @@
 
 
             <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Text="{Binding DistrictData.name}" />
-            <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Text="{Binding DistrictData.country}" />
+            <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Text="{Binding DistrictData.county}" />
             <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Text="{Binding DistrictData.count}" />
             <TextBlock Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Text="{Binding DistrictData.deaths}" />
             <TextBlock Grid.Column="2" Grid.Row="4" HorizontalAlignment="Right" Text="{Binding DistrictData.weekIncidence, Converter={StaticResource NumberFormatConverter}}" />

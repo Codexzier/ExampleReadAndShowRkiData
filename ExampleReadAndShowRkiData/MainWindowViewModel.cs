@@ -12,7 +12,7 @@ namespace ExampleReadAndShowRkiData
         private ICommand _loadRkiData;
         private string _searchContains;
         private DistrictItem _selectedDistrict;
-        private RkiCovidApiCountryItem _districtData;
+        private RkiCovidApiDistrictItem _districtData;
         private string _lastUpdate;
         private ICommand _searchDistrictMaxWeekIncidence;
         private ICommand _sortByWeekIncidence;
@@ -20,7 +20,7 @@ namespace ExampleReadAndShowRkiData
         private ICommand _sortByDeath;
         private ObservableCollection<RkiJsonResultItem> _jsonFiles;
         private RkiJsonResultItem _selectedDateRkiJsonResult;
-        private IEnumerable<RkiCovidApiCountryItem> _countryResults;
+        private IEnumerable<RkiCovidApiDistrictItem> _countryResults;
 
         public ObservableCollection<DistrictItem> Districts
         {
@@ -59,7 +59,7 @@ namespace ExampleReadAndShowRkiData
             }
         }
 
-        public IEnumerable<RkiCovidApiCountryItem> CountryResults
+        public IEnumerable<RkiCovidApiDistrictItem> CountryResults
         {
             get => this._countryResults;
             set
@@ -88,7 +88,7 @@ namespace ExampleReadAndShowRkiData
             }
         }
 
-        public RkiCovidApiCountryItem DistrictData
+        public RkiCovidApiDistrictItem DistrictData
         {
             get => this._districtData; set
             {
@@ -142,7 +142,8 @@ namespace ExampleReadAndShowRkiData
             }
         }
 
-        public RkiCovidDistricts RawResultDistricts { get; internal set; }
+
+        public RkiCovidApiDistricts RawResultDistricts { get; internal set; }
 
         private void OnPropertyChanged(string propertyname) => this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyname));
 

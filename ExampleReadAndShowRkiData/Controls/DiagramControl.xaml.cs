@@ -13,16 +13,16 @@ namespace ExampleReadAndShowRkiData.Controls
     {
 
 
-        public List<RkiCovidApiCountryItem> RkiCountryData { 
-            get => (List<RkiCovidApiCountryItem>)this.GetValue(RkiCountryDataProperty); 
+        public List<RkiCovidApiDistrictItem> RkiCountryData { 
+            get => (List<RkiCovidApiDistrictItem>)this.GetValue(RkiCountryDataProperty); 
             set => this.SetValue(RkiCountryDataProperty, value); 
         }
 
         public static readonly DependencyProperty RkiCountryDataProperty =
             DependencyProperty.RegisterAttached("RkiCountryData",
-                typeof(List<RkiCovidApiCountryItem>),
+                typeof(List<RkiCovidApiDistrictItem>),
                 typeof(DiagramControl),
-                new PropertyMetadata(new List<RkiCovidApiCountryItem>(), UpdateDiagram));
+                new PropertyMetadata(new List<RkiCovidApiDistrictItem>(), UpdateDiagram));
         
         private static void UpdateDiagram(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

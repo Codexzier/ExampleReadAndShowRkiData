@@ -2,10 +2,10 @@
 
 namespace ExampleReadAndShowRkiData.Rki
 {
-    public class RkiCovidDistricts
+    public class RkiCovidApiDistricts
     {
         public string lastUpdate { get; set; }
-        public IList<RkiCovidApiCountryItem> districts { get; set; }
+        public IList<RkiCovidApiDistrictItem> districts { get; set; }
     }
 
 }
