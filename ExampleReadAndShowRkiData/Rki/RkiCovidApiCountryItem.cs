@@ -9,6 +9,7 @@
         public double weekIncidence { get; set; }
         public double casesPer100k { get; set; }
         public double casesPerPopulation { get; set; }
+        public string Date { get; internal set; }
     }
 
 }

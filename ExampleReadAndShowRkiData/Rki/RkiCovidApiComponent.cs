@@ -14,13 +14,11 @@ namespace ExampleReadAndShowRkiData.Rki
 
         public RkiCovidDistricts LoadAktualData(bool _updateDataFromInternet)
         {
-            var date = DateTime.Today;
-
-            var filename = $"{Environment.CurrentDirectory}/rki-corona-data-{date:d}.json";
+            var filename = HelperExtension.CreateFilename();
 
             if(File.Exists(filename) && !_updateDataFromInternet)
             {
-                return JsonConvert.DeserializeObject<RkiCovidDistricts>(File.ReadAllText(filename));
+                return this.LoadAktualData(filename);
             }
 
             var client = new WebClient { BaseAddress = this._address };
@@ -41,6 +39,11 @@ namespace ExampleReadAndShowRkiData.Rki
             }
 
             return null;
+        }
+
+        internal RkiCovidDistricts LoadAktualData(string filename)
+        {
+            return JsonConvert.DeserializeObject<RkiCovidDistricts>(File.ReadAllText(filename));
         }
     }
 

@@ -1,6 +1,7 @@
-﻿using System.Windows;
-using System.Linq;
+﻿using ExampleReadAndShowRkiData.Rki;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace ExampleReadAndShowRkiData
 {
@@ -21,6 +22,14 @@ namespace ExampleReadAndShowRkiData
             this._viewModel.SortByWeekIncidence = new CommandSortByWeekIncidence(this._viewModel);
             this._viewModel.LoadRkiDataFromInternet = new CommandLoadRikiData(this._viewModel, true);
             this._viewModel.SortByDeath = new CommandSortByDeath(this._viewModel);
+        }
+
+        public override void OnApplyTemplate()
+        {
+            var files = HelperExtension.GetFiles();
+
+            this._viewModel.JsonFiles = new ObservableCollection<RkiJsonResultItem>(files.Select(s => new RkiJsonResultItem(s)));
+            this._viewModel.SelectedDateRkiJsonResult = this._viewModel.JsonFiles.FirstOrDefault();
         }
 
         private void TextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -68,6 +77,22 @@ namespace ExampleReadAndShowRkiData
                     .name
                     .ToLower()
                     .Equals(this._viewModel.SelectedDistrict.Name.ToLower()));
+
+            this._viewModel.CountryResults = HelperExtension.GetCountryResults(this._viewModel.SelectedDistrict.Name);
+        }
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(this._viewModel.SelectedDateRkiJsonResult == null)
+            {
+                return;
+            }
+
+            var result = new RkiCovidApiComponent().LoadAktualData(this._viewModel.SelectedDateRkiJsonResult.Filename);
+
+            this._viewModel.LastUpdate = result.lastUpdate.RemoveTimeFromLastUpdateString();
+            this._viewModel.RawResultDistricts = result;
+            this._viewModel.Districts = new ObservableCollection<DistrictItem>(result.districts.Select(s => new DistrictItem(s)));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ExampleReadAndShowRkiData.Rki;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -17,6 +18,9 @@ namespace ExampleReadAndShowRkiData
         private ICommand _sortByWeekIncidence;
         private ICommand _loadRkiDataFromInternet;
         private ICommand _sortByDeath;
+        private ObservableCollection<RkiJsonResultItem> _jsonFiles;
+        private RkiJsonResultItem _selectedDateRkiJsonResult;
+        private IEnumerable<RkiCovidApiCountryItem> _countryResults;
 
         public ObservableCollection<DistrictItem> Districts
         {
@@ -34,6 +38,34 @@ namespace ExampleReadAndShowRkiData
             {
                 this._selectedDistrict = value;
                 this.OnPropertyChanged(nameof(this.SelectedDistrict));
+            }
+        }
+
+        public ObservableCollection<RkiJsonResultItem> JsonFiles
+        {
+            get => this._jsonFiles; set
+            {
+                this._jsonFiles = value;
+                this.OnPropertyChanged(nameof(this.JsonFiles));
+            }
+        }
+
+        public RkiJsonResultItem SelectedDateRkiJsonResult
+        {
+            get => this._selectedDateRkiJsonResult; set
+            {
+                this._selectedDateRkiJsonResult = value;
+                this.OnPropertyChanged(nameof(this.SelectedDateRkiJsonResult));
+            }
+        }
+
+        public IEnumerable<RkiCovidApiCountryItem> CountryResults
+        {
+            get => this._countryResults;
+            set
+            {
+                this._countryResults = value;
+                this.OnPropertyChanged(nameof(this.CountryResults));
             }
         }
 

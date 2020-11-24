@@ -24,7 +24,7 @@ namespace ExampleReadAndShowRkiData
         {
             var result = new RkiCovidApiComponent().LoadAktualData(this._updateDataFromInternet);
 
-            this._viewModel.LastUpdate = result.lastUpdate;
+            this._viewModel.LastUpdate = result.lastUpdate.RemoveTimeFromLastUpdateString();
             this._viewModel.RawResultDistricts = result;
             this._viewModel.Districts = new ObservableCollection<DistrictItem>(result.districts.Select(s => new DistrictItem(s)));
         }
