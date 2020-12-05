@@ -123,7 +123,7 @@
             <TextBlock Grid.Column="2" Grid.Row="5" HorizontalAlignment="Right" Text="{Binding DistrictData.casesPer100k, Converter={StaticResource NumberFormatConverter}}" />
             <TextBlock Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" Text="{Binding DistrictData.casesPerPopulation, Converter={StaticResource NumberFormatConverter}}" />
 
-            <Controls:DiagramControl Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="8" RkiCountryData="{Binding CountryResults}" />
+            <Controls:DiagramControl Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="8" RkiCountyData="{Binding CountyResults}" />
         </Grid>
     </Grid>
 </Window>

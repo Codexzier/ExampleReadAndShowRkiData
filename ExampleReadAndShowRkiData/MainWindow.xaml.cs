@@ -26,9 +26,12 @@ namespace ExampleReadAndShowRkiData
 
         public override void OnApplyTemplate()
         {
-            var files = HelperExtension.GetFiles();
+            var files = HelperExtension
+                .GetFiles()
+                .Select(s => new RkiJsonResultItem(s))
+                .OrderBy(o => o.Date);
 
-            this._viewModel.JsonFiles = new ObservableCollection<RkiJsonResultItem>(files.Select(s => new RkiJsonResultItem(s)));
+            this._viewModel.JsonFiles = new ObservableCollection<RkiJsonResultItem>(files);
             this._viewModel.SelectedDateRkiJsonResult = this._viewModel.JsonFiles.FirstOrDefault();
         }
 
@@ -78,7 +81,7 @@ namespace ExampleReadAndShowRkiData
                     .ToLower()
                     .Equals(this._viewModel.SelectedDistrict.Name.ToLower()));
 
-            this._viewModel.CountryResults = HelperExtension.GetCountryResults(this._viewModel.SelectedDistrict.Name);
+            this._viewModel.CountyResults = HelperExtension.GetCountyResults(this._viewModel.SelectedDistrict.Name);
         }
 
         private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

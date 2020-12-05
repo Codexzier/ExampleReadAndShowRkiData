@@ -20,7 +20,7 @@ namespace ExampleReadAndShowRkiData
         private ICommand _sortByDeath;
         private ObservableCollection<RkiJsonResultItem> _jsonFiles;
         private RkiJsonResultItem _selectedDateRkiJsonResult;
-        private IEnumerable<RkiCovidApiDistrictItem> _countryResults;
+        private IEnumerable<RkiCovidApiDistrictItem> _countyResults;
 
         public ObservableCollection<DistrictItem> Districts
         {
@@ -59,13 +59,13 @@ namespace ExampleReadAndShowRkiData
             }
         }
 
-        public IEnumerable<RkiCovidApiDistrictItem> CountryResults
+        public IEnumerable<RkiCovidApiDistrictItem> CountyResults
         {
-            get => this._countryResults;
+            get => this._countyResults;
             set
             {
-                this._countryResults = value;
-                this.OnPropertyChanged(nameof(this.CountryResults));
+                this._countyResults = value;
+                this.OnPropertyChanged(nameof(this.CountyResults));
             }
         }
 

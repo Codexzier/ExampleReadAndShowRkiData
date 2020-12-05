@@ -13,13 +13,13 @@ namespace ExampleReadAndShowRkiData.Controls
     {
 
 
-        public List<RkiCovidApiDistrictItem> RkiCountryData { 
-            get => (List<RkiCovidApiDistrictItem>)this.GetValue(RkiCountryDataProperty); 
-            set => this.SetValue(RkiCountryDataProperty, value); 
+        public List<RkiCovidApiDistrictItem> RkiCountyData { 
+            get => (List<RkiCovidApiDistrictItem>)this.GetValue(RkiCountyDataProperty); 
+            set => this.SetValue(RkiCountyDataProperty, value); 
         }
 
-        public static readonly DependencyProperty RkiCountryDataProperty =
-            DependencyProperty.RegisterAttached("RkiCountryData",
+        public static readonly DependencyProperty RkiCountyDataProperty =
+            DependencyProperty.RegisterAttached("RkiCountyData",
                 typeof(List<RkiCovidApiDistrictItem>),
                 typeof(DiagramControl),
                 new PropertyMetadata(new List<RkiCovidApiDistrictItem>(), UpdateDiagram));
@@ -28,16 +28,16 @@ namespace ExampleReadAndShowRkiData.Controls
         {
             if (d is DiagramControl control)
             {
-                if(control.RkiCountryData == null)
+                if(control.RkiCountyData == null)
                 {
                     return;
                 }
 
                 control.SimpleDiagram.Children.Clear();
 
-                var widthPerResult =  control.MaxWidth / control.RkiCountryData.Count;
+                var widthPerResult =  control.MaxWidth / control.RkiCountyData.Count;
 
-                foreach (var item in control.RkiCountryData)
+                foreach (var item in control.RkiCountyData)
                 {
                     var rect = new System.Windows.Shapes.Rectangle
                     {

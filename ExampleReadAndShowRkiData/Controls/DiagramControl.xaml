@@ -21,9 +21,9 @@
                     FlowDirection="LeftToRight" 
                     HorizontalAlignment="Left" />
         </Border>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <!--<StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Content="Steigungswerte" Command="{Binding}" />
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
    
     

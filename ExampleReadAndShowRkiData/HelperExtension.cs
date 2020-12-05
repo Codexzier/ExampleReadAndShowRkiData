@@ -37,7 +37,7 @@ namespace ExampleReadAndShowRkiData
             return date;
         }
 
-        internal static IEnumerable<RkiCovidApiDistrictItem> GetCountryResults(string name)
+        internal static IEnumerable<RkiCovidApiDistrictItem> GetCountyResults(string name)
         {
             var list = new List<RkiCovidApiDistrictItem>();
             foreach (var filename in GetFiles())
@@ -57,9 +57,13 @@ namespace ExampleReadAndShowRkiData
                 list.Add(v);
             }
 
-            return list;
+            return list.OrderBy(o => {
+            if (DateTime.TryParse(o.Date, out DateTime dt)){
+                return dt;
+            }
 
-            ;
+                return DateTime.MinValue;
+            }).ToList();
         }
 
         internal static string RemoveTimeFromLastUpdateString(this string lastUpdate)
