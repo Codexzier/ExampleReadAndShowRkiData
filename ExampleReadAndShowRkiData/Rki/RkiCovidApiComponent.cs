@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Text;
 
 namespace ExampleReadAndShowRkiData.Rki
 {
@@ -10,13 +9,25 @@ namespace ExampleReadAndShowRkiData.Rki
     {
         private readonly string _address = "https://rki-covid-api.now.sh/api/";
 
-        public RkiCovidApiDistricts LoadAktualData(bool _updateDataFromInternet)
+        internal RkiCovidApiDistricts LoadData()
         {
             var filename = HelperExtension.CreateFilename();
 
-            if (File.Exists(filename) && !_updateDataFromInternet)
+            if (File.Exists(filename))
             {
-                return this.LoadAktualData(filename);
+                var t = this.LoadFromFile(filename);
+                var str = t.lastUpdate.RemoveTimeFromLastUpdateString();
+
+                if (DateTime.TryParse(str, out DateTime dt))
+                {
+                    var actualDateTime = DateTime.Now.ToShortDateString();
+                    var lastUpdateTime = dt.ToShortDateString();
+
+                    if (actualDateTime.Equals(lastUpdateTime))
+                    {
+                        return this.LoadFromFile(filename);
+                    }
+                }
             }
 
             return this.LoadAktualDataFromInternet(filename);
@@ -44,7 +55,7 @@ namespace ExampleReadAndShowRkiData.Rki
             return null;
         }
 
-        internal RkiCovidApiDistricts LoadAktualData(string filename)
+        internal RkiCovidApiDistricts LoadFromFile(string filename)
         {
             return JsonConvert.DeserializeObject<RkiCovidApiDistricts>(File.ReadAllText(filename));
         }

@@ -9,18 +9,16 @@ namespace ExampleReadAndShowRkiData
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<DistrictItem> _districts;
-        private ICommand _loadRkiData;
         private string _searchContains;
         private DistrictItem _selectedDistrict;
         private RkiCovidApiDistrictItem _districtData;
         private string _lastUpdate;
-        private ICommand _searchDistrictMaxWeekIncidence;
         private ICommand _sortByWeekIncidence;
-        private ICommand _loadRkiDataFromInternet;
         private ICommand _sortByDeath;
         private ObservableCollection<RkiJsonResultItem> _jsonFiles;
         private RkiJsonResultItem _selectedDateRkiJsonResult;
         private IEnumerable<RkiCovidApiDistrictItem> _countyResults;
+        private ICommand _loadData;
 
         public ObservableCollection<DistrictItem> Districts
         {
@@ -69,12 +67,13 @@ namespace ExampleReadAndShowRkiData
             }
         }
 
-        public ICommand LoadRkiData
+        public ICommand LoadData
         {
-            get => this._loadRkiData; set
+            get => this._loadData;
+            set
             {
-                this._loadRkiData = value;
-                this.OnPropertyChanged(nameof(this.LoadRkiData));
+                this._loadData = value;
+                this.OnPropertyChanged(nameof(this.LoadData));
             }
         }
 
@@ -106,30 +105,12 @@ namespace ExampleReadAndShowRkiData
             }
         }
 
-        public ICommand SearchDistrictMaxWeekIncidence
-        {
-            get => this._searchDistrictMaxWeekIncidence; set
-            {
-                this._searchDistrictMaxWeekIncidence = value;
-                this.OnPropertyChanged(nameof(this.SearchDistrictMaxWeekIncidence));
-            }
-        }
-
         public ICommand SortByWeekIncidence
         {
             get => this._sortByWeekIncidence; set
             {
                 this._sortByWeekIncidence = value;
                 this.OnPropertyChanged(nameof(this.SortByWeekIncidence));
-            }
-        }
-
-        public ICommand LoadRkiDataFromInternet
-        {
-            get => this._loadRkiDataFromInternet; set
-            {
-                this._loadRkiDataFromInternet = value;
-                this.OnPropertyChanged(nameof(this.LoadRkiDataFromInternet));
             }
         }
 

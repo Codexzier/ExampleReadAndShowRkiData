@@ -17,11 +17,9 @@ namespace ExampleReadAndShowRkiData
 
             this._viewModel = (MainWindowViewModel)this.DataContext;
 
-            this._viewModel.LoadRkiData = new CommandLoadRikiData(this._viewModel);
-            this._viewModel.SearchDistrictMaxWeekIncidence = new CommandSearchDistrictMaxWeekIncidence(this._viewModel);
             this._viewModel.SortByWeekIncidence = new CommandSortByWeekIncidence(this._viewModel);
-            this._viewModel.LoadRkiDataFromInternet = new CommandLoadRikiData(this._viewModel, true);
             this._viewModel.SortByDeath = new CommandSortByDeath(this._viewModel);
+            this._viewModel.LoadData = new CommandLoadData(this._viewModel);
         }
 
         public override void OnApplyTemplate()
@@ -29,7 +27,7 @@ namespace ExampleReadAndShowRkiData
             var files = HelperExtension
                 .GetFiles()
                 .Select(s => new RkiJsonResultItem(s))
-                .OrderBy(o => o.Date);
+                .OrderByDescending(o => o.Date);
 
             this._viewModel.JsonFiles = new ObservableCollection<RkiJsonResultItem>(files);
             this._viewModel.SelectedDateRkiJsonResult = this._viewModel.JsonFiles.FirstOrDefault();
@@ -91,7 +89,7 @@ namespace ExampleReadAndShowRkiData
                 return;
             }
 
-            var result = new RkiCovidApiComponent().LoadAktualData(this._viewModel.SelectedDateRkiJsonResult.Filename);
+            var result = new RkiCovidApiComponent().LoadFromFile(this._viewModel.SelectedDateRkiJsonResult.Filename);
 
             this._viewModel.LastUpdate = result.lastUpdate.RemoveTimeFromLastUpdateString();
             this._viewModel.RawResultDistricts = result;

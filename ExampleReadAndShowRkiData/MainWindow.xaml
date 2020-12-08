@@ -26,19 +26,15 @@
                     Grid.Row="0" 
                     Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Lade Daten aus dem Internet" 
-                        ToolTip="Ruft explizit die Daten vom RKI API ab und speichert die Daten Lokal." 
-                        Command="{Binding LoadRkiDataFromInternet}" />
-                <Button Content="Lade Daten Lokal" 
-                        ToolTip="Wenn Lokal keine Daten vorhanden sind für den aktuellen Tag, dann wird aus dem Internet geladen und gespeichert." 
-                        Command="{Binding LoadRkiData}" />
+                <Button Content="Daten Laden" 
+                        ToolTip="Ruft die Daten lokal ab. Wenn die Daten Inhaltlich älter als auf der Dateiname beschreibt, dann wird aus dem Internet geladen."
+                        Command="{Binding LoadData}"/>
                 <ComboBox ItemsSource="{Binding JsonFiles}" 
                           SelectedItem="{Binding SelectedDateRkiJsonResult, UpdateSourceTrigger=PropertyChanged}"
                           SelectionChanged="ComboBox_SelectionChanged"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Content="Höchste 7-Tage-Inzidenz" 
-                        Command="{Binding SearchDistrictMaxWeekIncidence}" />
+               
                 <Button Content="Sortieren nach 7-Tage-Inzidenz" 
                         Command="{Binding SortByWeekIncidence}"/>
                 <Button Content="Sortieren nach Todeszahlen" 

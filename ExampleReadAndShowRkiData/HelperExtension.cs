@@ -43,7 +43,7 @@ namespace ExampleReadAndShowRkiData
             foreach (var filename in GetFiles())
             {
                 var result = new RkiCovidApiComponent()
-                    .LoadAktualData(filename);
+                    .LoadFromFile(filename);
                 var v = result
                     .districts
                     .FirstOrDefault(w => w.name.Equals(name));
