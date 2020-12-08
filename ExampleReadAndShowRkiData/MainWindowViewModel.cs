@@ -19,6 +19,7 @@ namespace ExampleReadAndShowRkiData
         private RkiJsonResultItem _selectedDateRkiJsonResult;
         private IEnumerable<RkiCovidApiDistrictItem> _countyResults;
         private ICommand _loadData;
+        private ICommand _listBoxSelectionChanged;
 
         public ObservableCollection<DistrictItem> Districts
         {
@@ -120,6 +121,16 @@ namespace ExampleReadAndShowRkiData
             {
                 this._sortByDeath = value;
                 this.OnPropertyChanged(nameof(this.SortByDeath));
+            }
+        }
+
+        public ICommand ListBoxSelectionChanged
+        {
+            get => this._listBoxSelectionChanged;
+            set
+            {
+                this._listBoxSelectionChanged = value;
+                this.OnPropertyChanged(nameof(this.ListBoxSelectionChanged));
             }
         }
 

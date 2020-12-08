@@ -4,8 +4,6 @@ namespace ExampleReadAndShowRkiData
 {
     public class DistrictItem
     {
-        private RkiCovidApiDistrictItem _item;
-
         public DistrictItem(RkiCovidApiDistrictItem item)
         {
             this.Name = item.name;

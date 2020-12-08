@@ -55,27 +55,26 @@
                      ItemsSource="{Binding Districts}" 
                      SelectedItem="{Binding SelectedDistrict}"
                      SelectionChanged="ListBox_SelectionChanged"
-                                          HorizontalAlignment="Stretch">
+                     HorizontalAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="DistrictItem">
-                        <Grid Width="400" >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="250" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                        <Grid Width="400">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" 
+                            <TextBlock Grid.Column="0" 
                                        Text="{Binding Name}" />
-                                <TextBlock Grid.Column="1" 
+                            <TextBlock Grid.Column="1" 
                                        HorizontalAlignment="Right" 
                                        Text="{Binding WeekIncidence, Converter={StaticResource NumberFormatConverter}}"
                                        Margin="0 0 20 0"/>
-                                <TextBlock Grid.Column="2"
+                            <TextBlock Grid.Column="2"
                                        HorizontalAlignment="Right" 
                                        Text="{Binding Deaths}" />
                         </Grid>
-                        
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

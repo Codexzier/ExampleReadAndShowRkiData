@@ -20,6 +20,7 @@ namespace ExampleReadAndShowRkiData
             this._viewModel.SortByWeekIncidence = new CommandSortByWeekIncidence(this._viewModel);
             this._viewModel.SortByDeath = new CommandSortByDeath(this._viewModel);
             this._viewModel.LoadData = new CommandLoadData(this._viewModel);
+            this._viewModel.ListBoxSelectionChanged = new CommandListBoxSelectionChanged(this._viewModel);
         }
 
         public override void OnApplyTemplate()
