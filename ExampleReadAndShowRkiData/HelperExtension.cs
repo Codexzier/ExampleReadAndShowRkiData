@@ -1,6 +1,7 @@
 ﻿using ExampleReadAndShowRkiData.Rki;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -77,6 +78,46 @@ namespace ExampleReadAndShowRkiData
                 .GetFiles(Environment.CurrentDirectory)
                 .Where(w => w.EndsWith(".json") &&
                             w.Contains(HelperExtension.RkiFilename));
+        }
+
+        internal static IEnumerable<RkiCovidApiDistrictItem> GetCountyResultsByPicketItems(IEnumerable<string> pickedNames)
+        {
+            var collection = new List<RkiCovidApiDistrictItem>();
+
+            foreach (var item in pickedNames)
+            {
+                collection.AddRange(GetCountyResults(item));
+            }
+
+            var gg = collection.GroupBy(gb => InternalTryParse(gb.Date));
+
+            var result = gg.Select(s =>
+            {
+                var t = s.Count();
+                Debug.WriteLine($"Anzahl: {t}");
+
+                var summeWeekIncidence = s.Sum(s => s.weekIncidence);
+                var summeDeath = s.Sum(s => s.deaths);
+
+                return new RkiCovidApiDistrictItem 
+                { 
+                    weekIncidence = summeWeekIncidence, 
+                    deaths = summeDeath ,
+                    Date = s.Key.ToShortDateString()
+                };
+            });
+                        
+            return result.ToList();
+        }
+
+        private static DateTime InternalTryParse(string date)
+        {
+            if (DateTime.TryParse(date, out DateTime dt))
+            {
+                return dt;
+            }
+
+            return DateTime.MinValue;
         }
     }
 }

@@ -13,6 +13,30 @@ namespace ExampleReadAndShowRkiData.Controls
     {
 
 
+        public static int GetMyProperty(DependencyObject obj)
+        {
+            return (int)obj.GetValue(ScaleProperty);
+        }
+
+        public static void SetMyProperty(DependencyObject obj, int value)
+        {
+            obj.SetValue(ScaleProperty, value);
+        }
+
+        public double Scale 
+        {
+            get => (double)this.GetValue(ScaleProperty);
+            set => this.SetValue(ScaleProperty, value);
+        }
+
+       
+        public static readonly DependencyProperty ScaleProperty =
+            DependencyProperty.RegisterAttached(
+                "Scale", 
+                typeof(double), 
+                typeof(DiagramControl), 
+                new PropertyMetadata(2.5));
+
         public List<RkiCovidApiDistrictItem> RkiCountyData { 
             get => (List<RkiCovidApiDistrictItem>)this.GetValue(RkiCountyDataProperty); 
             set => this.SetValue(RkiCountyDataProperty, value); 
@@ -44,7 +68,7 @@ namespace ExampleReadAndShowRkiData.Controls
                         Fill = new SolidColorBrush(Colors.Green),
                         VerticalAlignment = VerticalAlignment.Bottom,
                         Width = widthPerResult,
-                        Height = item.weekIncidence / 2.5d,
+                        Height = item.weekIncidence / control.Scale,
                         ToolTip = $"{item.Date}, 7 Tage Inzidenz: {item.weekIncidence:N1}, Tote: {item.deaths}"
                     };
                     control.SimpleDiagram.Children.Add(rect);    

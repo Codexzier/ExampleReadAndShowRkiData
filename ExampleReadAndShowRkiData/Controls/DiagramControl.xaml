@@ -5,14 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ExampleReadAndShowRkiData.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="225" d:DesignWidth="300"
-             MinHeight="225" MinWidth="300" 
-             MaxHeight="225" MaxWidth="300">
+             d:DesignHeight="200" d:DesignWidth="300"
+             MinHeight="200" MinWidth="300" 
+             MaxHeight="200" MaxWidth="300">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="25" />
-        </Grid.RowDefinitions>
         <Border BorderThickness="1" 
                 BorderBrush="Black" 
                 Height="200">
@@ -21,9 +17,6 @@
                     FlowDirection="LeftToRight" 
                     HorizontalAlignment="Left" />
         </Border>
-        <!--<StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Content="Steigungswerte" Command="{Binding}" />
-        </StackPanel>-->
     </Grid>
    
     

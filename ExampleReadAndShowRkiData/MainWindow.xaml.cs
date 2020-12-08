@@ -1,4 +1,5 @@
 ﻿using ExampleReadAndShowRkiData.Rki;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -67,7 +68,7 @@ namespace ExampleReadAndShowRkiData
 
         private void ListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if(this._viewModel.SelectedDistrict == null || string.IsNullOrEmpty(this._viewModel.SelectedDistrict.Name))
+            if (this._viewModel.SelectedDistrict == null || string.IsNullOrEmpty(this._viewModel.SelectedDistrict.Name))
             {
                 return;
             }
@@ -81,6 +82,8 @@ namespace ExampleReadAndShowRkiData
                     .Equals(this._viewModel.SelectedDistrict.Name.ToLower()));
 
             this._viewModel.CountyResults = HelperExtension.GetCountyResults(this._viewModel.SelectedDistrict.Name);
+
+            this.ReloadSelected();
         }
 
         private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -99,12 +102,23 @@ namespace ExampleReadAndShowRkiData
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-
+            this.ReloadSelected();
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
+            this.ReloadSelected();
+        }
 
+        private void ReloadSelected()
+        {
+            var pickedNames = this._viewModel.Districts.Where(w => w.IsPicket).Select(s => s.Name);
+            if (!pickedNames.Any())
+            {
+                this._viewModel.PicketResults = new List<RkiCovidApiDistrictItem>();
+                return;
+            }
+            this._viewModel.PicketResults = HelperExtension.GetCountyResultsByPicketItems(pickedNames);
         }
     }
 }
