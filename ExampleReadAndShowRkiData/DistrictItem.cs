@@ -17,5 +17,7 @@ namespace ExampleReadAndShowRkiData
 
         public double WeekIncidence { get; }
         public int Deaths { get; }
+
+        public bool IsPicket { get; set; }
     }
 }

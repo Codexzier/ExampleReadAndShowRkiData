@@ -95,5 +95,15 @@ namespace ExampleReadAndShowRkiData
             this._viewModel.RawResultDistricts = result;
             this._viewModel.Districts = new ObservableCollection<DistrictItem>(result.districts.Select(s => new DistrictItem(s)));
         }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
