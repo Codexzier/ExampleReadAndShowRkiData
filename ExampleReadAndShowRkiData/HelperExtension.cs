@@ -110,7 +110,7 @@ namespace ExampleReadAndShowRkiData
             return result.ToList();
         }
 
-        private static DateTime InternalTryParse(string date)
+        internal static DateTime InternalTryParse(string date)
         {
             if (DateTime.TryParse(date, out DateTime dt))
             {

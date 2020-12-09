@@ -35,7 +35,7 @@ namespace ExampleReadAndShowRkiData.Controls
                 "Scale", 
                 typeof(double), 
                 typeof(DiagramControl), 
-                new PropertyMetadata(2.5));
+                new PropertyMetadata(2.5, UpdateDiagram));
 
         public List<RkiCovidApiDistrictItem> RkiCountyData { 
             get => (List<RkiCovidApiDistrictItem>)this.GetValue(RkiCountyDataProperty); 

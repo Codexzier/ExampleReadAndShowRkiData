@@ -43,6 +43,13 @@
                         Command="{Binding SortByDeath}"/>
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Selektiere alle die die letzten 3 Tage angestiegen sind."
+                        Command="{Binding SelectAllCountyWihtLast3DaysUps}"
+                        Visibility="Collapsed" />
+                
+            </StackPanel>
+
         </StackPanel>
 
         <Grid Grid.Column="0" 
@@ -111,6 +118,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="10" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" />
@@ -132,8 +140,13 @@
             <Controls:DiagramControl Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="8" RkiCountyData="{Binding CountyResults}" />
 
             <Controls:DiagramControl Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="10"
-                                 Scale="5"
+                                 Scale="{Binding Path=Value, ElementName=slider}"
                                  RkiCountyData="{Binding PicketResults}" />
+            
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="11">
+                <Slider x:Name="slider" Minimum="1" Maximum="10" Value="1" />
+                <TextBlock Text="{Binding Path=Value, ElementName=slider, StringFormat=N1}" />
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

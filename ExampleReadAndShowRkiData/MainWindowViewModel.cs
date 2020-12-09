@@ -21,6 +21,7 @@ namespace ExampleReadAndShowRkiData
         private ICommand _loadData;
         private IEnumerable<RkiCovidApiDistrictItem> _picketResults;
         private ICommand _listBoxSelectionChanged;
+        private ICommand _selectAllCountyWihtLast3DaysUps;
 
         public ObservableCollection<DistrictItem> Districts
         {
@@ -142,6 +143,16 @@ namespace ExampleReadAndShowRkiData
             {
                 this._listBoxSelectionChanged = value;
                 this.OnPropertyChanged(nameof(this.ListBoxSelectionChanged));
+            }
+        }
+
+        public ICommand SelectAllCountyWihtLast3DaysUps
+        {
+            get => this._selectAllCountyWihtLast3DaysUps;
+            set
+            {
+                this._selectAllCountyWihtLast3DaysUps = value;
+                this.OnPropertyChanged(nameof(this.SelectAllCountyWihtLast3DaysUps));
             }
         }
 
