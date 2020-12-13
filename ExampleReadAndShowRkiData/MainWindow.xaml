@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ExampleReadAndShowRkiData" 
         mc:Ignorable="d"
         Title="Example RKI Corona Application" 
-        Height="620" Width="800" 
-        MinHeight="620" MinWidth="600">
+        Height="630" Width="800" 
+        MinHeight="630" MinWidth="600">
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
