@@ -1,0 +1,54 @@
+﻿<Window xmlns:Eventbus="clr-namespace:OverviewRkiData.Components.Ui.Eventbus"  
+        x:Class="OverviewRkiData.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:menu="clr-namespace:OverviewRkiData.Views.Menu"
+        mc:Ignorable="d"
+        Title="Übersicht RKI Daten" 
+        Height="400" Width="500" 
+        Loaded="Window_Loaded" 
+        WindowStartupLocation="Manual" 
+        Closing="Window_Closing">
+    <Grid Background="{StaticResource BrushMonochromatischGreen_D}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" 
+              Grid.ColumnSpan="2" 
+              Background="{StaticResource BrushMonochromatischGreen_E}"
+              MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            <Button HorizontalAlignment="Right" 
+                    Content="X" 
+                    Width="20" 
+                    Height="20" 
+                    ToolTip="Close application" 
+                    Click="ButtonClose_Click" />
+        </Grid>
+        
+        <menu:MenuView Grid.Row="1" Grid.ColumnSpan="2" />
+        <Eventbus:SideHostControl Grid.Row="2"
+                                  Grid.Column="0" 
+                                  HorizontalAlignment="Stretch" 
+                                  Channel="0" />
+        <Eventbus:SideHostControl Grid.Row="2" 
+                                  Grid.Column="1" 
+                                  HorizontalAlignment="Stretch" 
+                                  Channel="1" />
+
+        <Eventbus:SideHostControl Grid.Row="0" 
+                                  Grid.RowSpan="3" 
+                                  Grid.ColumnSpan="2" 
+                                  HorizontalAlignment="Stretch" 
+                                  Channel="10" 
+                                  VerticalAlignment="Stretch" />
+       
+    </Grid>
+</Window>
