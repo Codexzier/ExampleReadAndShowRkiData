@@ -7,6 +7,6 @@ namespace OverviewRkiData.Views.Main
 {
     public class MainViewModel : BaseViewModel
     {
-
+        public ObservableCollection<DistrictItem> Districts { get; set; }
     }
 }

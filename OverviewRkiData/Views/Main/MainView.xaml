@@ -5,20 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OverviewRkiData.Views.Main"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="200">
+             d:DesignHeight="250" d:DesignWidth="300">
     <UserControl.DataContext>
         <local:MainViewModel />
     </UserControl.DataContext>
-    <Grid Background="{StaticResource BrushMonochromatischGreen_D}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Border BorderBrush="{StaticResource BrushMonochromatischGreen_E}" BorderThickness="1">
+        <Grid Background="{StaticResource BrushMonochromatischGreen_D}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" HorizontalAlignment="Stretch">
-            <TextBlock Text="Hallo" />
+            <TextBox Grid.Row="1" 
+                     Text="{Binding SearchCounty, UpdateSourceTrigger=PropertyChanged}" />
+
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding Districts}">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="" />
+                    <DataGridTextColumn Header="County" />
+                    <DataGridTextColumn Header="Inzidenz" />
+                    <DataGridTextColumn Header="Death" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
-
-    </Grid>
+    </Border>
 
 </UserControl>

@@ -15,19 +15,14 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         
-        <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal">
-            <Button Content="Main" 
-                Click="ButtonOpenMain_Click"  />
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+            <Button Content="Main" Command="{Binding CommandOpenMain}" />
 
-            <Button Content="Setup"
-                Click="ButtonSetup_Click" />
+            <Button Content="Setup" Command="{Binding CommandOpenSetup}" />
         </StackPanel>
 
         <Grid Grid.Column="1">
-            <!--TODO: Keine Ahnung warum hier das Binding nicht funktionieirt-->
-            <ServiceStatus:ServiceStatusControl Width="20" Height="20"
-                                                ServiceState="True" 
-                                                ToolTip="Is service available"/>
+
         </Grid>
     </Grid>
 </UserControl>
