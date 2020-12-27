@@ -1,8 +1,13 @@
-﻿using System.Windows.Controls;
-using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Data;
+﻿using OverviewRkiData.Commands;
+using OverviewRkiData.Components.RkiCoronaLandkreise;
 using OverviewRkiData.Components.Ui.Eventbus;
 using OverviewRkiData.Components.UserSettings;
+using OverviewRkiData.Views.Base;
+using OverviewRkiData.Views.Data;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace OverviewRkiData.Views.Main
 {
@@ -17,13 +22,54 @@ namespace OverviewRkiData.Views.Main
             this._viewModel = (MainViewModel)this.DataContext;
 
             EventbusManager.Register<MainView, BaseMessage>(this.BaseMessageEvent);
+            this._viewModel.CommandSelectedDistrict = new ChangedCommandSelectedDistrict(this._viewModel);
+            this._viewModel.CommandSortByWeekIncidence = new ButtonCommandSortByWeekIncidence(viewModel: this._viewModel);
+            this._viewModel.CommandSortByDeaths = new ButtonCommandSortByDeaths(viewModel: this._viewModel);
         }
 
-        private void BaseMessageEvent(IMessageContainer arg)
+        private async void BaseMessageEvent(IMessageContainer arg)
         {
-            var settings = UserSettingsLoader.GetInstance().Load();
-            // TODO You can use save settings to reload last save setting.
+            SimpleStatusOverlays.ActivityOn();
+
+            await Task.Run(() =>
+            {
+                if (arg.Content is BaseMessageOptions option && option == BaseMessageOptions.LoadActualData)
+                {
+                    var component = RkiCoronaLandkreiseComponent.GetInstance();
+                    var landkreise = component.LoadData();
+
+                    var di = landkreise.Districts.Select(s => new DistrictItem
+                    {
+                        Name = s.Name,
+                        Deaths = s.Deaths,
+                        WeekIncidence = s.WeekIncidence
+                    });
+
+                    StaticDataManager.ActualLoadedDataDate = landkreise.Date;
+                    StaticDataManager.ActualLoadedData = di;
+                }
+
+                this._viewModel.ActualDataFromDate = StaticDataManager.ActualLoadedDataDate.ToShortDateString();
+                this._viewModel.Districts = new ObservableCollection<DistrictItem>(StaticDataManager.ActualLoadedData);
+
+                SimpleStatusOverlays.ActivityOff();
+            });
         }
 
+        private void TextBoxSearch_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (string.IsNullOrEmpty(this._viewModel.SearchCounty))
+            {
+                this._viewModel.Districts = new ObservableCollection<DistrictItem>(StaticDataManager.ActualLoadedData);
+                return;
+            }
+
+
+            var searchResult = StaticDataManager
+                .ActualLoadedData
+                .Where(w => w.Name.ToLower().Contains(this._viewModel.SearchCounty.ToLower()));
+
+            this._viewModel.Districts = new ObservableCollection<DistrictItem>(searchResult);
+        }
     }
 }

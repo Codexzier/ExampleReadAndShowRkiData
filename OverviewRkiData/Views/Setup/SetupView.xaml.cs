@@ -11,7 +11,7 @@ namespace OverviewRkiData.Views.Setup
     /// <summary>
     /// Interaction logic for SetupView.xaml
     /// </summary>
-    public partial class SetupView : UserControl, IDisposable
+    public partial class SetupView : UserControl
     {
         private readonly SetupViewModel _viewModel;
         public SetupView()
@@ -19,37 +19,16 @@ namespace OverviewRkiData.Views.Setup
             this.InitializeComponent();
 
             this._viewModel = (SetupViewModel)this.DataContext;
+
+            this._viewModel.CommandLoadRkiDataByApplicationStart = new CheckBoxCommandLoadRkiDataByApplicationStart(viewModel: this._viewModel);
+            this._viewModel.CommandImportDataFromLegacyApplication = new ButtonCommandImportDataFromLegacyApplication(this._viewModel);
         }
 
         public override void OnApplyTemplate()
         {
             var setting = UserSettingsLoader.GetInstance().Load();
-
-            this._viewModel.ServiceAddress = setting.ServiceAddress;
-            this._viewModel.Port = setting.Port;
+            this._viewModel.LoadRkiDataByApplicationStart = setting.LoadRkiDataByApplicationStart;
         }
-
-        public void Dispose()
-        {
-            EventbusManager.Deregister<SetupView>();
-        }
-
-        private void ButtonSave_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var userSetting = UserSettingsLoader.GetInstance();
-            var setting = userSetting.Load();
-
-            if (Regex.IsMatch(this._viewModel.ServiceAddress, @"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"))
-            {
-                SimpleMessageBox.Show("ERROR", "Check address. Address must locks like http://localhost");
-                // EventbusManager.Send<MessageBoxView, MessageBoxMessage>(new MessageBoxMessage("ERROR", "Check address. Address must locks like http://localhost"), 10, true);
-                return;
-            }
-
-            setting.ServiceAddress = this._viewModel.ServiceAddress;
-            setting.Port = this._viewModel.Port;
-
-            userSetting.Save(setting);
-        }
+               
     }
 }

@@ -9,11 +9,10 @@ namespace OverviewRkiData.Components.UserSettings
         private string _applicationWindowState;
         private int _applicationPositionX;
         private int _applicationPositionY;
-        private string _serviceAddress;
-        private int _port;
         private string _lastImportDirectory;
         private string _lastImportFilename;
         private bool _loadFromService;
+        private bool _loadRkiDataByApplicationStart;
 
         public SettingsFile(bool hasChanged) => this.HasChanged = hasChanged;
 
@@ -31,7 +30,15 @@ namespace OverviewRkiData.Components.UserSettings
                 this.SetChanged();
             }
         }
-        public int SizeY { get => this._sizeY; set { this._sizeY = value; this.SetChanged(); } }
+        public int SizeY
+        {
+            get => this._sizeY;
+            set
+            {
+                this._sizeY = value;
+                this.SetChanged();
+            }
+        }
 
         public string ApplicationWindowState
         {
@@ -62,26 +69,6 @@ namespace OverviewRkiData.Components.UserSettings
             }
         }
 
-        public string ServiceAddress
-        {
-            get => this._serviceAddress;
-            set
-            {
-                this._serviceAddress = value;
-                this.SetChanged();
-            }
-        }
-
-        public int Port
-        {
-            get => this._port;
-            set
-            {
-                this._port = value;
-                this.SetChanged();
-            }
-        }
-
         public string LastImportDirectory
         {
             get => this._lastImportDirectory; set
@@ -105,6 +92,16 @@ namespace OverviewRkiData.Components.UserSettings
             get => this._loadFromService; set
             {
                 this._loadFromService = value;
+                this.SetChanged();
+            }
+        }
+
+        public bool LoadRkiDataByApplicationStart
+        {
+            get => this._loadRkiDataByApplicationStart;
+            set
+            {
+                this._loadRkiDataByApplicationStart = value;
                 this.SetChanged();
             }
         }

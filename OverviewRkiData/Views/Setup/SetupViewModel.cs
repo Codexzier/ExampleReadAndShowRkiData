@@ -1,29 +1,41 @@
 ﻿using OverviewRkiData.Views.Base;
+using System.Windows.Input;
 
 namespace OverviewRkiData.Views.Setup
 {
     internal class SetupViewModel : BaseViewModel
     {
-        private string _serviceAddress;
-        private int _port;
+        private bool _loadRkiDataByApplicationStart;
+        private ICommand _commandLoadRkiDataByApplicationStart;
+        private ICommand _commandImportDataFromLegacyApplication;
 
-        public string ServiceAddress
+        public bool LoadRkiDataByApplicationStart
         {
-            get => this._serviceAddress;
+            get => this._loadRkiDataByApplicationStart;
             set
             {
-                this._serviceAddress = value;
-                this.OnNotifyPropertyChanged(nameof(this.ServiceAddress));
+                this._loadRkiDataByApplicationStart = value;
+                this.OnNotifyPropertyChanged(nameof(this.LoadRkiDataByApplicationStart));
             }
         }
 
-        public int Port
+        public ICommand CommandLoadRkiDataByApplicationStart
         {
-            get => this._port;
+            get => this._commandLoadRkiDataByApplicationStart;
             set
             {
-                this._port = value;
-                this.OnNotifyPropertyChanged(nameof(this.Port));
+                this._commandLoadRkiDataByApplicationStart = value;
+                this.OnNotifyPropertyChanged(nameof(this.CommandLoadRkiDataByApplicationStart));
+            }
+        }
+
+        public ICommand CommandImportDataFromLegacyApplication
+        {
+            get => this._commandImportDataFromLegacyApplication;
+            set
+            {
+                this._commandImportDataFromLegacyApplication = value;
+                this.OnNotifyPropertyChanged(nameof(this.CommandImportDataFromLegacyApplication));
             }
         }
     }

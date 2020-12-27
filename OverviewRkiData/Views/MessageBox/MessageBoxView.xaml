@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OverviewRkiData.Views.MessageBox"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="500" d:DesignWidth="600">
     <UserControl.DataContext>
         <local:MessageBoxViewModel />
     </UserControl.DataContext>
@@ -29,8 +29,8 @@
         <Grid Grid.Column="1" 
               Grid.Row="1" 
               Background="{StaticResource BrushMonochromatischGreen_E}" 
-              Width="300" 
-              Height="150">
+              Width="500" 
+              Height="350">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />

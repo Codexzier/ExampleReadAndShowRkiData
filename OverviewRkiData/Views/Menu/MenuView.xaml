@@ -1,4 +1,4 @@
-﻿<UserControl xmlns:ServiceStatus="clr-namespace:OverviewRkiData.Controls.ServiceStatus"  x:Class="OverviewRkiData.Views.Menu.MenuView"
+﻿<UserControl x:Class="OverviewRkiData.Views.Menu.MenuView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

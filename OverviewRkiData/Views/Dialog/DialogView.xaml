@@ -1,5 +1,4 @@
-﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl xmlns:FolderBrowser="clr-namespace:OverviewRkiData.Controls.FolderBrowser"  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -15,31 +14,29 @@
         <Grid Opacity=".4" 
               Background="{StaticResource BrushBlack}" />
         <Grid Margin="100 40" 
-              Background="{StaticResource BrushMonochromatischGreen_E}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+              Background="{StaticResource BrushMonochromatischGreen_D}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding Header}" 
-                   Padding="5"
-                   Background="{StaticResource BrushMonochromatischGreen_D}"
-                   Foreground="{StaticResource BrushMonochromatischGreen_C}" />
-        
-        <Eventbus:SideHostControl Grid.Row="1" 
-                                  HorizontalAlignment="Stretch" 
-                                  Margin="0" 
-                                  Channel="2"
-                                  VerticalAlignment="Stretch"/>
+            <TextBlock Text="{Binding Header}" 
+                       Padding="5"
+                       Margin="1"
+                       Background="{StaticResource BrushMonochromatischGreen_A}"
+                       Foreground="{StaticResource BrushMonochromatischGreen_C}" />
 
-        <StackPanel Grid.Row="2"  
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Right"
-                    Margin="0 10 5 5">
-            <Button Content="Accept" />
-            <Button Content="Cancel" Command="{Binding ButtonClickCloseDialogView}" />
-        </StackPanel>
+            <FolderBrowser:FolderBrowserControl Grid.Row="1" 
+                                                SelectedDirectoryPath="{Binding SelectedDirectoryPath, UpdateSourceTrigger=LostFocus, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+
+            <StackPanel Grid.Row="2"  
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right"
+                        Margin="0 10 5 5">
+                <Button Content="Accept" Command="{Binding CommandSelectedPathDialogAccept}" />
+                <Button Content="Cancel" Command="{Binding ButtonClickCloseDialogView}" />
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

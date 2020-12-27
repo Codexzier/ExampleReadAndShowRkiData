@@ -9,25 +9,50 @@
     <UserControl.DataContext>
         <local:MainViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource BrushMonochromatischGreen_E}" />
+                <Setter Property="Margin" Value="10 5" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Border BorderBrush="{StaticResource BrushMonochromatischGreen_E}" BorderThickness="1">
         <Grid Background="{StaticResource BrushMonochromatischGreen_D}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="1" 
-                     Text="{Binding SearchCounty, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <!-- TODO: Kann umgestellt werden auf das Data grid und dessen SpaltenHeader -->
+                <Button Content="Sort by week incidence" Command="{Binding CommandSortByWeekIncidence}" />
+                <Button Content="Sort by deaths count" Command="{Binding CommandSortByDeaths}" />
+            </StackPanel>
 
-            <DataGrid Grid.Row="1"
-                      ItemsSource="{Binding Districts}">
+            <TextBox Grid.Row="1" 
+                     Margin="1 1 17 1"
+                     Text="{Binding SearchCounty, UpdateSourceTrigger=PropertyChanged}"
+                     KeyUp="TextBoxSearch_KeyUp"/>
+
+            <DataGrid Grid.Row="2"
+                      ItemsSource="{Binding Districts}" 
+                      SelectedItem="{Binding Selected, UpdateSourceTrigger=PropertyChanged}" >
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="" />
-                    <DataGridTextColumn Header="County" />
-                    <DataGridTextColumn Header="Inzidenz" />
-                    <DataGridTextColumn Header="Death" />
+                    <DataGridCheckBoxColumn Header="" Binding="{Binding Selected}" Visibility="Collapsed" />
+                    <DataGridTextColumn Header="County" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Inzidenz" Binding="{Binding WeekIncidence, StringFormat=N1}" />
+                    <DataGridTextColumn Header="Death" Binding="{Binding Deaths}" />
                 </DataGrid.Columns>
             </DataGrid>
+            <Border Grid.Row="3"
+                    BorderBrush="{StaticResource BrushMonochromatischGreen_E}" 
+                    BorderThickness="0 1 0 0">
+                <TextBlock Text="{Binding ActualDataFromDate}" />
+            </Border>
+            
         </Grid>
     </Border>
 

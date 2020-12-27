@@ -18,7 +18,7 @@ namespace ExampleReadAndShowRkiData.Rki
                 var t = this.LoadFromFile(filename);
                 var str = t.lastUpdate.RemoveTimeFromLastUpdateString();
 
-                if (DateTime.TryParse(str, out DateTime dt))
+                if (DateTime.TryParse(str, out var dt))
                 {
                     var actualDateTime = DateTime.Now.ToShortDateString();
                     var lastUpdateTime = dt.ToShortDateString();

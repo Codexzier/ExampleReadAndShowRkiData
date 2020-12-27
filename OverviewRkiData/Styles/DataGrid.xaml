@@ -25,7 +25,7 @@
         <Setter Property="BorderThickness" Value="1 0 0 0" />
         <Setter Property="BorderBrush" Value="{StaticResource BrushMonochromatischGreen_D}" />
         <Setter Property="Background" Value="{StaticResource BrushMonochromatischGreen_C}" />
-        <Setter Property="Foreground" Value="{StaticResource BrushMonochromatischGreen_E}" />
+        <Setter Property="Foreground" Value="{StaticResource BrushMonochromatischGreen_D}" />
         
     </Style>
 
@@ -68,7 +68,7 @@
                 <Setter Property="BorderThickness" Value="1 1 0 1" />
                 <Setter Property="BorderBrush" Value="{StaticResource BrushMonochromatischGreen_D}" />
                 <Setter Property="Background" Value="{StaticResource BrushMonochromatischGreen_C}"/>
-                <Setter Property="Foreground" Value="{StaticResource BrushMonochromatischGreen_E}" />
+                <Setter Property="Foreground" Value="{StaticResource BrushMonochromatischGreen_D}" />
             </Trigger>
             <!--<Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource BrushMonochromatischGreen_A}"/>

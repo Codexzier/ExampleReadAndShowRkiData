@@ -1,5 +1,6 @@
 ﻿using OverviewRkiData.Commands;
 using OverviewRkiData.Components.Ui.Eventbus;
+using OverviewRkiData.Views.Main;
 using System.Windows.Controls;
 
 namespace OverviewRkiData.Views.Menu

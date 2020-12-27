@@ -1,8 +1,7 @@
-﻿using System.Windows.Controls;
-using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Data;
+﻿using OverviewRkiData.Commands;
 using OverviewRkiData.Components.Ui.Eventbus;
-using OverviewRkiData.Views.DialogContent;
+using OverviewRkiData.Views.Main;
+using System.Windows.Controls;
 
 namespace OverviewRkiData.Views.Dialog
 {
@@ -12,7 +11,6 @@ namespace OverviewRkiData.Views.Dialog
     public partial class DialogView : UserControl
     {
         private readonly DialogViewModel _viewModel;
-        private object _content = null;
 
         public DialogView()
         {
@@ -22,21 +20,7 @@ namespace OverviewRkiData.Views.Dialog
 
             EventbusManager.Register<DialogView, BaseMessage>(this.BaseMessageEvent);
 
-            this.Loaded += this.DialogView_Loaded;
-        }
-
-        ~DialogView()
-        {
-            this.Loaded -= this.DialogView_Loaded;
-        }
-
-        private void DialogView_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (this._content is CommonData)
-            {
-                EventbusManager.OpenView<DialogContentView>(2);
-                EventbusManager.Send<DialogContentView, BaseMessage>(new BaseMessage(this._content), 2);
-            }
+            this._viewModel.CommandSelectedPathDialogAccept = new ButtonCommandSelectedPathDialogAccept(this._viewModel);
         }
 
         private void BaseMessageEvent(IMessageContainer obj)
@@ -47,7 +31,6 @@ namespace OverviewRkiData.Views.Dialog
             }
 
             this._viewModel.Header = dialogContent.Header;
-            this._content = dialogContent.Content;
         }
     }
 }
