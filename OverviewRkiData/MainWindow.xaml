@@ -30,6 +30,7 @@
                     Width="20" 
                     Height="20" 
                     ToolTip="Close application" 
+                    Visibility="Collapsed"
                     Click="ButtonClose_Click" />
         </Grid>
         

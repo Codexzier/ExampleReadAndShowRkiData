@@ -35,41 +35,14 @@ namespace OverviewRkiData.Views.County
                 {
                     var result = HelperExtension.GetCountyResults(districtItem.Name);
 
-                    this._viewModel.CountyResults = result.Select(s => new DiagramLevelItem { Value = s.WeekIncidence, ToolTipText = "??" }).ToList();
+                    this._viewModel.CountyResults = result.Select(s =>
+                    {
+
+                        var toolTip = $"{s.Date:d} | {s.WeekIncidence:N1} | {s.Deaths}";
+                        return new DiagramLevelItem { Value = s.WeekIncidence, ToolTipText = toolTip };
+                    }).ToList();
                 });
             }
         }
-
-        //internal static IEnumerable<DistrictItem> GetCountyResults(string name)
-        //{
-        //    var list = new List<DistrictItem>();
-        //    foreach (var filename in GetFiles())
-        //    {
-        //        var result = RkiCoronaLandkreiseComponent.GetInstance()
-        //            .LoadFromFile(filename);
-        //        var v = result
-        //            .Districts
-        //            .FirstOrDefault(w => w.Name.Equals(name));
-
-        //        if (v == null)
-        //        {
-        //            continue;
-        //        }
-
-        //        list.Add(new DistrictItem { Name = v.Name, Deaths = v.Deaths, WeekIncidence = v.WeekIncidence, Date = result.Date });
-        //    }
-
-        //    return list.OrderBy(o => o.Date).ToList();
-        //}
-
-
-
-        //private static IEnumerable<string> GetFiles()
-        //{
-        //    return Directory
-        //        .GetFiles(Environment.CurrentDirectory)
-        //        .Where(w => w.EndsWith(".json") &&
-        //                    w.Contains(HelperExtension.RkiFilename));
-        //}
     }
 }
