@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace OverviewRkiData.Components.Ui.Anims
 {
@@ -28,7 +30,6 @@ namespace OverviewRkiData.Components.Ui.Anims
             if (storyboard == null)
             {
                 storyboard = AnimationsHelper.CreateStorybord(0, duration, autoReverse);
-
             }
 
             var ta = AnimationsHelper.GetThicknessAnimation(from, to, beginTime, duration, autoReverse);
@@ -42,6 +43,29 @@ namespace OverviewRkiData.Components.Ui.Anims
             Storyboard.SetTargetProperty(ta, new PropertyPath("(Canvas.Margin)"));
 
             return control;
+        }
+
+        public static void SetFade<TDependencyObject>(
+            TDependencyObject control,
+            Storyboard storyboard,
+            double from,
+            double to,
+            double beginTime = 0,
+            double duration = 100,
+            bool autoReverse = false) where TDependencyObject : DependencyObject
+        {
+            if (storyboard == null)
+            {
+                storyboard = AnimationsHelper.CreateStorybord(0, duration, autoReverse);
+            }
+
+            var da = AnimationsHelper.GetDoubleAnimation(from, to, beginTime, duration, autoReverse);
+
+            storyboard.Children.Add(da);
+
+            Storyboard.SetTarget(da, control);
+            Storyboard.SetTargetProperty(da, new PropertyPath(UIElement.OpacityProperty));
+
         }
     }
 }

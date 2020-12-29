@@ -37,9 +37,12 @@
                      Text="{Binding SearchCounty, UpdateSourceTrigger=PropertyChanged}"
                      KeyUp="TextBoxSearch_KeyUp"/>
 
-            <DataGrid Grid.Row="2"
+            <DataGrid Grid.Row="2" 
+                      Grid.RowSpan="2"
+                      RenderOptions.CachingHint="Cache"
                       ItemsSource="{Binding Districts}" 
-                      SelectedItem="{Binding Selected, UpdateSourceTrigger=PropertyChanged}" >
+                      SelectedItem="{Binding Selected, UpdateSourceTrigger=PropertyChanged}" 
+                      Margin="0,1,0,26">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Header="" Binding="{Binding Selected}" Visibility="Collapsed" />
                     <DataGridTextColumn Header="County" Binding="{Binding Name}" />

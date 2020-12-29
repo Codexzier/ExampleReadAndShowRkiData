@@ -50,7 +50,19 @@ namespace OverviewRkiData.Views.Main
                 }
 
                 this._viewModel.ActualDataFromDate = StaticDataManager.ActualLoadedDataDate.ToShortDateString();
-                this._viewModel.Districts = new ObservableCollection<DistrictItem>(StaticDataManager.ActualLoadedData);
+                   
+                this.Dispatcher.Invoke(() =>
+                {
+                    this._viewModel.Districts.Clear();
+                });
+
+                foreach (var item in StaticDataManager.ActualLoadedData)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this._viewModel.Districts.Add(item);
+                    });
+                }
 
                 SimpleStatusOverlays.ActivityOff();
             });
@@ -63,7 +75,6 @@ namespace OverviewRkiData.Views.Main
                 this._viewModel.Districts = new ObservableCollection<DistrictItem>(StaticDataManager.ActualLoadedData);
                 return;
             }
-
 
             var searchResult = StaticDataManager
                 .ActualLoadedData
