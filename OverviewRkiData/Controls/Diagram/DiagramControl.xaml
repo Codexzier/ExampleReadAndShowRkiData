@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
                d:DesignHeight="200" d:DesignWidth="300"
              MinHeight="200" MinWidth="300" 
-             MaxHeight="200">
+             MaxHeight="200" SizeChanged="UserControl_SizeChanged">
     <Grid>
         <Border BorderThickness="1" 
                 BorderBrush="{StaticResource BrushMonochromatischGreen_D}" 

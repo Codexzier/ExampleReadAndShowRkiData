@@ -38,44 +38,53 @@ namespace OverviewRkiData.Controls.Diagram
         {
             if (d is DiagramControl control)
             {
-                if (control.RkiCountyData == null)
+              
+
+                SetValueToRects(control);
+            }
+        }
+
+        private static void SetValueToRects(DiagramControl control)
+        {
+            if (control.RkiCountyData == null)
+            {
+                return;
+            }
+
+            control.SimpleDiagram.Children.Clear();
+
+            var widthPerResult = control.ActualWidth / control.RkiCountyData.Count;
+
+            int delay = 1;
+            foreach (var item in control.RkiCountyData)
+            {
+                var heightValue = item.Value / control.Scale;
+
+                var rect = new System.Windows.Shapes.Rectangle
                 {
-                    return;
-                }
+                    Fill = new SolidColorBrush(Color.FromArgb(255, 138, 187, 219)),
+                    VerticalAlignment = VerticalAlignment.Bottom,
+                    Width = widthPerResult,
+                    Height = heightValue,
+                    ToolTip = item.ToolTipText,
+                    Margin = new Thickness(0, 0, 0, heightValue * -1)
+                };
 
-                control.SimpleDiagram.Children.Clear();
-
-                var widthPerResult = control.ActualWidth / control.RkiCountyData.Count;
-
-                int delay = 1;
-                foreach (var item in control.RkiCountyData)
-                {
-                    var rect = new System.Windows.Shapes.Rectangle
-                    {
-                        Fill = new SolidColorBrush(Color.FromArgb(255, 138, 187, 219)),
-                        VerticalAlignment = VerticalAlignment.Bottom,
-                        Width = widthPerResult,
-                        Height = item.Value / control.Scale,
-                        ToolTip = item.ToolTipText,
-                        
-                    };
-
-                    rect.Margin = new Thickness(0, 0, 0, rect.Height * -1);
-
-                    var storyboard = new Storyboard();
-                    Animations.SetMove(rect,
-                        storyboard,
-                        new Thickness(0, 0, 0, rect.Height * -1),
-                        new Thickness(0),
-                        delay * 20,
-                        100);
-                    control.SimpleDiagram.Children.Add(rect);
-                    storyboard.Begin();
-                    delay++;
-                }
+                var storyboard = new Storyboard();
+                Animations.SetMove(rect,
+                    storyboard,
+                    new Thickness(0, 0, 0, rect.Height * -1),
+                    new Thickness(0),
+                    delay * 20,
+                    100);
+                control.SimpleDiagram.Children.Add(rect);
+                storyboard.Begin();
+                delay++;
             }
         }
 
         public DiagramControl() => this.InitializeComponent();
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e) => SetValueToRects(this);
     }
 }
