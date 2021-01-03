@@ -21,6 +21,8 @@ namespace OverviewRkiData
             // Importiere alt Daten
             //new LegacyDataConverter().Run();
 
+            new ShiftDataToSubFolder().MoveRkiDataFilesFromCurrentApplicationFolderToSubFolder();
+
             var setting = UserSettingsLoader.GetInstance().Load();
 
             this.LoadApplicationSize(setting);

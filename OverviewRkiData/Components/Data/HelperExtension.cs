@@ -9,28 +9,23 @@ namespace OverviewRkiData.Components.Data
 {
     public static class HelperExtension
     {
+        internal static string DataFolderName = "rki-data";
         internal static string RkiFilename = "rki-corona-data";
-
-        public static IEnumerable<string> GetRkiFiles()
-        {
-            var files = Directory
-                .GetFiles(Environment.CurrentDirectory)
-                .Where(w => w.Contains(RkiFilename));
-
-            return files;
-        }
 
         public static string CreateFilename()
         {
+            var folder = SubFolderRkiData();
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
             var date = DateTime.Today;
 
-            return $"{Environment.CurrentDirectory}/{RkiFilename}-{date:d}.json";
+            return $"{folder}/{RkiFilename}-{date:d}.json";
         }
 
-        public static string CreateFilenameCountry(string country)
-        {
-            return $"{Environment.CurrentDirectory}/{RkiFilename}-{country}.json";
-        }
+        public static string SubFolderRkiData() => $"{Environment.CurrentDirectory}/{DataFolderName}";
 
         public static string GetDate(this string filename)
         {
@@ -70,10 +65,19 @@ namespace OverviewRkiData.Components.Data
             return lastUpdate.Split(',')[0];
         }
 
+        //public static IEnumerable<string> GetRkiFiles()
+        //{
+        //    var files = Directory
+        //        .GetFiles(SubFolderRkiData())
+        //        .Where(w => w.Contains(RkiFilename));
+
+        //    return files;
+        //}
+
         internal static IEnumerable<string> GetFiles()
         {
             return Directory
-                .GetFiles(Environment.CurrentDirectory)
+                .GetFiles(SubFolderRkiData())
                 .Where(w => w.EndsWith(".json") &&
                             w.Contains(HelperExtension.RkiFilename));
         }

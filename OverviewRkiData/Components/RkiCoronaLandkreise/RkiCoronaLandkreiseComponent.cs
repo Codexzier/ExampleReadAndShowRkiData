@@ -51,7 +51,7 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
 
         private string GetLastLoadedData()
         {
-            var last = HelperExtension.GetRkiFiles().Select(s => new FileInfo(s)).OrderBy(w =>
+            var last = HelperExtension.GetFiles().Select(s => new FileInfo(s)).OrderBy(w =>
             {
                 var dateStr = w.FullName.GetDate();
                 if (DateTime.TryParse(dateStr, out var dt))
@@ -60,7 +60,7 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
                 }
 
                 return DateTime.MinValue;
-            });
+            }).ToArray();
 
             if(!last.Any())
             {
