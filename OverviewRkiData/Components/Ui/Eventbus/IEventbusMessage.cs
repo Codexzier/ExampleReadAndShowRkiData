@@ -1,6 +1,6 @@
-﻿namespace OverviewRkiData.Components.Ui.Eventbus
+﻿namespace OverviewRkiData.Components.Ui.EventBus
 {
-    public interface IEventbusMessage
+    public interface IEventBusMessage
     {
     }
 }

@@ -11,20 +11,13 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
 {
     public class RkiCoronaLandkreiseComponent
     {
-        private static RkiCoronaLandkreiseComponent _singelton;
+        private static RkiCoronaLandkreiseComponent _singleton;
 
-        private readonly string _urlGenCasesDeathsWeekinzidenz = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=cases,deaths,county,last_update,cases7_per_100k,death_rate,GEN&returnGeometry=false&outSR=4326&f=json";
+        private const string UrlGenCasesDeathsWeekIncidence = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=cases,deaths,county,last_update,cases7_per_100k,death_rate,GEN&returnGeometry=false&outSR=4326&f=json";
 
         private RkiCoronaLandkreiseComponent() { }
 
-        public static RkiCoronaLandkreiseComponent GetInstance()
-        {
-            if (_singelton == null)
-            {
-                _singelton = new RkiCoronaLandkreiseComponent();
-            }
-            return _singelton;
-        }
+        public static RkiCoronaLandkreiseComponent GetInstance() => _singleton ??= new RkiCoronaLandkreiseComponent();
 
         public Landkreise LoadData()
         {
@@ -32,7 +25,7 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
 
             if (!UserSettingsLoader.GetInstance().Load().LoadRkiDataByApplicationStart)
             {
-                filename = this.GetLastLoadedData();
+                filename = GetLastLoadedData();
             }
 
             if (!string.IsNullOrEmpty(filename) && File.Exists(filename))
@@ -44,12 +37,12 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
                 }
             }
 
-            var result = this.ConvertToLandkreise(this.LoadAktualData());
+            var result = this.ConvertToLandkreise(this.LoadActualData());
             this.SaveToFile(result, filename);
             return result;
         }
 
-        private string GetLastLoadedData()
+        private static string GetLastLoadedData()
         {
             var last = HelperExtension.GetFiles().Select(s => new FileInfo(s)).OrderBy(w =>
             {
@@ -62,12 +55,7 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
                 return DateTime.MinValue;
             }).ToArray();
 
-            if(!last.Any())
-            {
-                return string.Empty;
-            }
-
-            return last.Last().FullName;
+            return !last.Any() ? string.Empty : last.Last().FullName;
         }
 
         private Landkreise LoadLocalOrReloadOnlineFromRki(string filename)
@@ -127,10 +115,7 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
             return new Landkreise();
         }
 
-        internal Landkreise LoadFromFile(string filename)
-        {
-            return JsonConvert.DeserializeObject<Landkreise>(File.ReadAllText(filename));
-        }
+        internal Landkreise LoadFromFile(string filename) => JsonConvert.DeserializeObject<Landkreise>(File.ReadAllText(filename));
 
         internal void SaveToFile(Landkreise landkreise, string filename)
         {
@@ -139,21 +124,16 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
             File.WriteAllText(filename, contentStr);
         }
 
-        private RkiCoronaLandkreiseResult LoadAktualData()
+        private RkiCoronaLandkreiseResult LoadActualData()
         {
-            var client = new WebClient();
-            client.Headers[HttpRequestHeader.ContentType] = "application/json";
-
-            try
+            var client = new WebClient
             {
-                var result = client.DownloadString(this._urlGenCasesDeathsWeekinzidenz);
+                Headers = {[HttpRequestHeader.ContentType] = "application/json"}
+            };
 
-                return JsonConvert.DeserializeObject<RkiCoronaLandkreiseResult>(result);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            var result = client.DownloadString(UrlGenCasesDeathsWeekIncidence);
+
+            return JsonConvert.DeserializeObject<RkiCoronaLandkreiseResult>(result);
         }
     }
 }

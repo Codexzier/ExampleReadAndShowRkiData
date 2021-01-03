@@ -1,5 +1,4 @@
-﻿using OverviewRkiData.Components.Data;
-using OverviewRkiData.Controls.Diagram;
+﻿using OverviewRkiData.Controls.Diagram;
 using OverviewRkiData.Views.Base;
 using OverviewRkiData.Views.Data;
 using System.Collections.Generic;

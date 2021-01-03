@@ -1,7 +1,6 @@
 ﻿using OverviewRkiData.Commands;
 using OverviewRkiData.Components.RkiCoronaLandkreise;
-using OverviewRkiData.Components.Ui.Eventbus;
-using OverviewRkiData.Components.UserSettings;
+using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Views.Base;
 using OverviewRkiData.Views.Data;
 using System.Collections.ObjectModel;
@@ -21,10 +20,10 @@ namespace OverviewRkiData.Views.Main
 
             this._viewModel = (MainViewModel)this.DataContext;
 
-            EventbusManager.Register<MainView, BaseMessage>(this.BaseMessageEvent);
+            EventBusManager.Register<MainView, BaseMessage>(this.BaseMessageEvent);
             this._viewModel.CommandSelectedDistrict = new ChangedCommandSelectedDistrict(this._viewModel);
-            this._viewModel.CommandSortByWeekIncidence = new ButtonCommandSortByWeekIncidence(viewModel: this._viewModel);
-            this._viewModel.CommandSortByDeaths = new ButtonCommandSortByDeaths(viewModel: this._viewModel);
+            this._viewModel.CommandSortByWeekIncidence = new ButtonCommandSortByWeekIncidence(this._viewModel);
+            this._viewModel.CommandSortByDeaths = new ButtonCommandSortByDeaths(this._viewModel);
         }
 
         private async void BaseMessageEvent(IMessageContainer arg)

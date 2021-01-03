@@ -6,7 +6,7 @@ namespace OverviewRkiData.Views.Setup
 {
     internal class CheckBoxCommandLoadRkiDataByApplicationStart : ICommand
     {
-        private SetupViewModel _viewModel;
+        private readonly SetupViewModel _viewModel;
 
         public CheckBoxCommandLoadRkiDataByApplicationStart(SetupViewModel viewModel) => this._viewModel = viewModel;
 

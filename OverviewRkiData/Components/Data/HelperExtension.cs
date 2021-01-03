@@ -1,7 +1,6 @@
 ﻿using OverviewRkiData.Components.RkiCoronaLandkreise;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -9,8 +8,8 @@ namespace OverviewRkiData.Components.Data
 {
     public static class HelperExtension
     {
-        internal static string DataFolderName = "rki-data";
-        internal static string RkiFilename = "rki-corona-data";
+        public static string DataFolderName = "rki-data";
+        public static string RkiFilename = "rki-corona-data";
 
         public static string CreateFilename()
         {
@@ -60,19 +59,7 @@ namespace OverviewRkiData.Components.Data
             return list.OrderBy(o => o.Date).ToList();
         }
 
-        internal static string RemoveTimeFromLastUpdateString(this string lastUpdate)
-        {
-            return lastUpdate.Split(',')[0];
-        }
-
-        //public static IEnumerable<string> GetRkiFiles()
-        //{
-        //    var files = Directory
-        //        .GetFiles(SubFolderRkiData())
-        //        .Where(w => w.Contains(RkiFilename));
-
-        //    return files;
-        //}
+        internal static string RemoveTimeFromLastUpdateString(this string lastUpdate) => lastUpdate.Split(',')[0];
 
         internal static IEnumerable<string> GetFiles()
         {
@@ -81,36 +68,5 @@ namespace OverviewRkiData.Components.Data
                 .Where(w => w.EndsWith(".json") &&
                             w.Contains(HelperExtension.RkiFilename));
         }
-
-        internal static IEnumerable<Landkreis> GetCountyResultsByPicketItems(IEnumerable<string> pickedNames)
-        {
-            var collection = new List<Landkreis>();
-
-            foreach (var item in pickedNames)
-            {
-                collection.AddRange(GetCountyResults(item));
-            }
-
-            var gg = collection.GroupBy(gb => gb.Date);
-
-            var result = gg.Select(s =>
-            {
-                var t = s.Count();
-                Debug.WriteLine($"Anzahl: {t}");
-
-                var summeWeekIncidence = s.Sum(s => s.WeekIncidence);
-                var summeDeath = s.Sum(s => s.Deaths);
-
-                return new Landkreis
-                {
-                    WeekIncidence = summeWeekIncidence,
-                    Deaths = summeDeath,
-                    Date = s.Key
-                };
-            });
-
-            return result.ToList();
-        }
-
     }
 }

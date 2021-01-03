@@ -1,4 +1,4 @@
-﻿using OverviewRkiData.Components.Ui.Eventbus;
+﻿using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Views.ActivityLoading;
 using OverviewRkiData.Views.MessageBox;
 using System.Windows;
@@ -11,7 +11,7 @@ namespace OverviewRkiData.Views.Base
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                EventbusManager.Send<MessageBoxView, MessageBoxMessage>(new MessageBoxMessage(title, message), 10, true);
+                EventBusManager.Send<MessageBoxView, MessageBoxMessage>(new MessageBoxMessage(title, message), 10, true);
             });
         }
 
@@ -19,7 +19,7 @@ namespace OverviewRkiData.Views.Base
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                EventbusManager.OpenView<ActivityLoadingView>(10);
+                EventBusManager.OpenView<ActivityLoadingView>(10);
             });
         }
 
@@ -27,7 +27,7 @@ namespace OverviewRkiData.Views.Base
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
-                EventbusManager.CloseView<ActivityLoadingView>(10);
+                EventBusManager.CloseView<ActivityLoadingView>(10);
             });
         }
     }

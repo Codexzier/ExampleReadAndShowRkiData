@@ -1,11 +1,10 @@
-﻿namespace OverviewRkiData.Components.Ui.Eventbus
+﻿namespace OverviewRkiData.Components.Ui.EventBus
 {
     public enum ViewOpen
     {
         Nothing,
         Main,
         MessageBox,
-        DvdItem,
         Setup,
         Import
     }

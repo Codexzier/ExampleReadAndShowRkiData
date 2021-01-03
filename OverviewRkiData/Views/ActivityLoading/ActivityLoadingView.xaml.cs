@@ -1,6 +1,5 @@
 ﻿using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Ui.Eventbus;
-using System;
+using OverviewRkiData.Components.Ui.EventBus;
 using System.Windows.Controls;
 
 namespace OverviewRkiData.Views.ActivityLoading
@@ -17,7 +16,7 @@ namespace OverviewRkiData.Views.ActivityLoading
 
             this._viewModel = (ActivityLoadingViewModel)this.DataContext;
 
-            EventbusManager.Register<ActivityLoadingView, BaseMessage>(this.BaseMessageEvent);
+            EventBusManager.Register<ActivityLoadingView, BaseMessage>(this.BaseMessageEvent);
         }
 
         private void BaseMessageEvent(IMessageContainer arg) { }

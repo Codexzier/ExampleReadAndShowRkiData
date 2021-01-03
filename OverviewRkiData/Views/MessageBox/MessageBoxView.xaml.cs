@@ -1,4 +1,4 @@
-﻿using OverviewRkiData.Components.Ui.Eventbus;
+﻿using OverviewRkiData.Components.Ui.EventBus;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,7 +16,7 @@ namespace OverviewRkiData.Views.MessageBox
 
             this._viewModel = (MessageBoxViewModel)this.DataContext;
 
-            EventbusManager.Register<MessageBoxView, MessageBoxMessage>(this.BaseMessageEvent);
+            EventBusManager.Register<MessageBoxView, MessageBoxMessage>(this.BaseMessageEvent);
         }
 
         private void BaseMessageEvent(IMessageContainer arg)
@@ -30,7 +30,7 @@ namespace OverviewRkiData.Views.MessageBox
 
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            EventbusManager.CloseView<MessageBoxView>(10);
+            EventBusManager.CloseView<MessageBoxView>(10);
         }
     }
 }

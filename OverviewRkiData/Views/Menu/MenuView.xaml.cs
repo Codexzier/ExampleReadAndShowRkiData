@@ -1,6 +1,5 @@
 ﻿using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Ui.Eventbus;
-using OverviewRkiData.Views.Main;
+using OverviewRkiData.Components.Ui.EventBus;
 using System.Windows.Controls;
 
 namespace OverviewRkiData.Views.Menu
@@ -18,8 +17,8 @@ namespace OverviewRkiData.Views.Menu
             this._viewModel.CommandOpenMain = new ButtonCommandOpenMain(this._viewModel);
             this._viewModel.CommandOpenSetup = new ButtonCommandOpenSetup(this._viewModel);
 
-            EventbusManager.Register<MenuView, BaseMessage>(this.BaseMessageEvent);
-            this._viewModel.ViewOpened = EventbusManager.GetViewOpened(0);
+            EventBusManager.Register<MenuView, BaseMessage>(this.BaseMessageEvent);
+            this._viewModel.ViewOpened = EventBusManager.GetViewOpened(0);
         }
 
         private void BaseMessageEvent(IMessageContainer arg)

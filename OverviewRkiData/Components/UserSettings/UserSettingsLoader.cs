@@ -9,15 +9,7 @@ namespace OverviewRkiData.Components.UserSettings
         private static UserSettingsLoader _userSettings;
         private readonly string _settingFile = $"{Environment.CurrentDirectory}\\settings.json";
 
-        public static UserSettingsLoader GetInstance()
-        {
-            if (_userSettings == null)
-            {
-                _userSettings = new UserSettingsLoader();
-            }
-
-            return _userSettings;
-        }
+        public static UserSettingsLoader GetInstance() => _userSettings ??= new UserSettingsLoader();
 
         public SettingsFile Load()
         {

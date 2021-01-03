@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Files\" />
   </ItemGroup>
 
 </Project>

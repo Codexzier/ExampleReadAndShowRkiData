@@ -1,4 +1,4 @@
-﻿using OverviewRkiData.Components.Ui.Eventbus;
+﻿using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Views.County;
 using OverviewRkiData.Views.Setup;
 using System;
@@ -8,7 +8,7 @@ namespace OverviewRkiData.Views.Menu
 {
     internal class ButtonCommandOpenSetup : ICommand
     {
-        private MenuViewModel _viewModel;
+        private readonly MenuViewModel _viewModel;
 
         public ButtonCommandOpenSetup(MenuViewModel viewModel) => this._viewModel = viewModel;
 
@@ -17,18 +17,18 @@ namespace OverviewRkiData.Views.Menu
         public bool CanExecute(object parameter) => true;
         public void Execute(object parameter)
         {
-            if (EventbusManager.IsViewOpen<SetupView>(0))
+            if (EventBusManager.IsViewOpen<SetupView>(0))
             {
                 return;
             }
 
-            if (EventbusManager.IsViewOpen<CountyView>(1))
+            if (EventBusManager.IsViewOpen<CountyView>(1))
             {
-                EventbusManager.CloseView<CountyView>(1);
+                EventBusManager.CloseView<CountyView>(1);
             }
 
-            EventbusManager.OpenView<SetupView>(0);
-            this._viewModel.ViewOpened = EventbusManager.GetViewOpened(0);
+            EventBusManager.OpenView<SetupView>(0);
+            this._viewModel.ViewOpened = EventBusManager.GetViewOpened(0);
         }
     }
 }

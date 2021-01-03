@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace OverviewRkiData.Components.Ui.Eventbus
+namespace OverviewRkiData.Components.Ui.EventBus
 {
     public class MessageEventHost<TView, TMessage> : IMessageEventHost
         where TMessage : IMessageContainer
@@ -9,19 +9,12 @@ namespace OverviewRkiData.Components.Ui.Eventbus
     {
         public Type ViewType => typeof(TView);
         public Type MessageType => typeof(TMessage);
-
-        private Action<IMessageContainer> _receiverMethod;
-
+        
         public void Send(IMessageContainer message) => this.SendEvent?.Invoke(message);
 
         public void Subscribe(Action<IMessageContainer> receiverMethod)
         {
-            this._receiverMethod = receiverMethod;
-
-            // TODO: Is mapping but how can I set directly
             this.SendEvent += (message) => { receiverMethod.Invoke(message); return true; };
-            //this.SendEvent += receiverMethod;
-            //receiverMethod += (message) => { return true; };
         }
 
         public void Remove()

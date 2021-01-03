@@ -6,35 +6,30 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace OverviewRkiData.Components.Ui.Eventbus
+namespace OverviewRkiData.Components.Ui.EventBus
 {
     public class SideHostControl : Control
     {
         public static IList<SideHostTypeChannel> TypeViews = new List<SideHostTypeChannel>();
 
-        public static bool IsViewOpen(Type view, int channel)
-        {
-            return TypeViews.Any(a => a.Channel == channel && a.TypeView.Equals(view));
-        }
-
-
+        public static bool IsViewOpen(Type view, int channel) => TypeViews.Any(a => a.Channel == channel && a.TypeView == view);
+        
         private ContentPresenter _presenter;
 
         public int Channel { get; set; }
-
-
+        
         static SideHostControl() => DefaultStyleKeyProperty.OverrideMetadata(typeof(SideHostControl), new FrameworkPropertyMetadata(typeof(SideHostControl)));
 
         public SideHostControl()
         {
-            EventbusManager.OpenViewEvent += this._eventbus_OpenViewEvent;
-            EventbusManager.CloseViewEvent += this.EventbusManager_CloseViewEvent;
+            EventBusManager.OpenViewEvent += this._eventBus_OpenViewEvent;
+            EventBusManager.CloseViewEvent += this.EventBusManager_CloseViewEvent;
         }
 
         public override void OnApplyTemplate() => this._presenter = this.GetContentPresenter<ContentPresenter>();
 
 
-        private void _eventbus_OpenViewEvent(object obj, int channel)
+        private void _eventBus_OpenViewEvent(object obj, int channel)
         {
             if (channel != this.Channel)
             {
@@ -50,7 +45,7 @@ namespace OverviewRkiData.Components.Ui.Eventbus
                this._presenter.Content is UserControl disposable)
             {
                 var t = this._presenter.Content.GetType();
-                EventbusManager.Deregister(t);
+                EventBusManager.Deregister(t);
 
                 //disposable.Dispose();
                 this.RemoveViewFromChannel(disposable, channel);
@@ -63,7 +58,7 @@ namespace OverviewRkiData.Components.Ui.Eventbus
 
 
 
-        private void EventbusManager_CloseViewEvent(Type view, int channel)
+        private void EventBusManager_CloseViewEvent(Type view, int channel)
         {
             if (channel != this.Channel)
             {
@@ -75,7 +70,7 @@ namespace OverviewRkiData.Components.Ui.Eventbus
                 return;
             }
 
-            if (!(this._presenter.Content is UserControl disposable))
+            if (!(this._presenter.Content is UserControl))
             {
                 return;
             }
@@ -83,9 +78,7 @@ namespace OverviewRkiData.Components.Ui.Eventbus
             if (this.RemoveViewFromChannel(view, channel))
             {
                 var t = this._presenter.Content.GetType();
-                EventbusManager.Deregister(t);
-
-                //disposable.Dispose();
+                EventBusManager.Deregister(t);
                 this._presenter.Content = null;
             }
         }
@@ -99,7 +92,7 @@ namespace OverviewRkiData.Components.Ui.Eventbus
                     return false;
                 }
 
-                if (a.TypeView.Equals(obj.GetType()))
+                if (a.TypeView == obj.GetType())
                 {
                     return true;
                 }

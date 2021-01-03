@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using OverviewRkiData.Components.Ui.Eventbus;
+using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Views.DialogContent;
 
 namespace OverviewRkiData.Views.Dialog
@@ -13,8 +13,8 @@ namespace OverviewRkiData.Views.Dialog
 
         public void Execute(object parameter)
         {
-            EventbusManager.CloseView<DialogContentView>(2);
-            EventbusManager.CloseView<DialogView>(10);
+            EventBusManager.CloseView<DialogContentView>(2);
+            EventBusManager.CloseView<DialogView>(10);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace OverviewRkiData.Views.Main
 {
     internal class ButtonCommandSortByWeekIncidence : ICommand
     {
-        private MainViewModel _viewModel;
+        private readonly MainViewModel _viewModel;
 
         public ButtonCommandSortByWeekIncidence(MainViewModel viewModel) => this._viewModel = viewModel;
 

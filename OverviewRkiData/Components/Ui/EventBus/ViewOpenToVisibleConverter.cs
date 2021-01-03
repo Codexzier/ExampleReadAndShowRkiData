@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace OverviewRkiData.Components.Ui.Eventbus
+namespace OverviewRkiData.Components.Ui.EventBus
 {
-    public class ViewOpenToVisableConverter : IValueConverter
+    public class ViewOpenToVisibleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

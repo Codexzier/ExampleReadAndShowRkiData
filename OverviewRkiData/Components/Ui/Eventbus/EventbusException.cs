@@ -1,18 +1,10 @@
 ﻿using System;
 
-namespace OverviewRkiData.Components.Ui.Eventbus
+namespace OverviewRkiData.Components.Ui.EventBus
 {
-    public class EventbusException : Exception
+    public class EventBusException : Exception
     {
-        public EventbusException()
-        {
-        }
-
-        public EventbusException(string message) : base(message)
-        {
-        }
-
-        public EventbusException(string message, Exception innerException) : base(message, innerException)
+        public EventBusException(string message) : base(message)
         {
         }
     }

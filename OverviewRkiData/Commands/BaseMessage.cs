@@ -1,4 +1,4 @@
-﻿using OverviewRkiData.Components.Ui.Eventbus;
+﻿using OverviewRkiData.Components.Ui.EventBus;
 
 namespace OverviewRkiData.Commands
 {

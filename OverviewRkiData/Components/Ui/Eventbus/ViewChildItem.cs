@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OverviewRkiData.Components.Ui.Eventbus
+namespace OverviewRkiData.Components.Ui.EventBus
 {
     internal class ViewChildItem
     {

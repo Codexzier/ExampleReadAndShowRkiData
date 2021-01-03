@@ -1,5 +1,5 @@
 ﻿using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Ui.Eventbus;
+using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Views.County;
 using System;
 using System.Windows.Input;
@@ -22,13 +22,13 @@ namespace OverviewRkiData.Views.Main
                 return;
             }
 
-            if (!EventbusManager.IsViewOpen(typeof(CountyView), 1))
+            if (!EventBusManager.IsViewOpen(typeof(CountyView), 1))
             {
-                EventbusManager.OpenView<CountyView>(1);
+                EventBusManager.OpenView<CountyView>(1);
                 
             }
             
-            EventbusManager.Send<CountyView, BaseMessage>(new BaseMessage(parameter), 1);
+            EventBusManager.Send<CountyView, BaseMessage>(new BaseMessage(parameter), 1);
         }
     }
 }

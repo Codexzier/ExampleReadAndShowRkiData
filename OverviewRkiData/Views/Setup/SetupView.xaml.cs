@@ -1,9 +1,4 @@
-﻿using OverviewRkiData.Components.Ui.Eventbus;
-using OverviewRkiData.Components.UserSettings;
-using OverviewRkiData.Views.Base;
-using OverviewRkiData.Views.MessageBox;
-using System;
-using System.Text.RegularExpressions;
+﻿using OverviewRkiData.Components.UserSettings;
 using System.Windows.Controls;
 
 namespace OverviewRkiData.Views.Setup
@@ -20,7 +15,7 @@ namespace OverviewRkiData.Views.Setup
 
             this._viewModel = (SetupViewModel)this.DataContext;
 
-            this._viewModel.CommandLoadRkiDataByApplicationStart = new CheckBoxCommandLoadRkiDataByApplicationStart(viewModel: this._viewModel);
+            this._viewModel.CommandLoadRkiDataByApplicationStart = new CheckBoxCommandLoadRkiDataByApplicationStart(this._viewModel);
             this._viewModel.CommandImportDataFromLegacyApplication = new ButtonCommandImportDataFromLegacyApplication(this._viewModel);
         }
 

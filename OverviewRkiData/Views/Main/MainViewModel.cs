@@ -41,7 +41,7 @@ namespace OverviewRkiData.Views.Main
             get => this._selected;
             set
             {
-                if (!this._districts.Equals(value))
+                if (this._selected == null || !this._selected.Equals(value))
                 {
                     this.CommandSelectedDistrict?.Execute(value);
                 }

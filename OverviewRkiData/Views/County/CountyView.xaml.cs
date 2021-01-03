@@ -1,7 +1,7 @@
 ﻿using OverviewRkiData.Commands;
 using OverviewRkiData.Components.Data;
 using OverviewRkiData.Components.Ui.Anims;
-using OverviewRkiData.Components.Ui.Eventbus;
+using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Controls.Diagram;
 using OverviewRkiData.Views.Data;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace OverviewRkiData.Views.County
 
             this._viewModel = (CountyViewModel)this.DataContext;
 
-            EventbusManager.Register<CountyView, BaseMessage>(this.CountyMessageEvent);
+            EventBusManager.Register<CountyView, BaseMessage>(this.CountyMessageEvent);
             this.InitializeAnimation();
         }
 

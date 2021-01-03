@@ -1,6 +1,5 @@
 ﻿using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Ui.Eventbus;
-using OverviewRkiData.Views.Main;
+using OverviewRkiData.Components.Ui.EventBus;
 using System.Windows.Controls;
 
 namespace OverviewRkiData.Views.Dialog
@@ -18,7 +17,7 @@ namespace OverviewRkiData.Views.Dialog
 
             this._viewModel = (DialogViewModel)this.DataContext;
 
-            EventbusManager.Register<DialogView, BaseMessage>(this.BaseMessageEvent);
+            EventBusManager.Register<DialogView, BaseMessage>(this.BaseMessageEvent);
 
             this._viewModel.CommandSelectedPathDialogAccept = new ButtonCommandSelectedPathDialogAccept(this._viewModel);
         }

@@ -1,6 +1,6 @@
 ﻿using OverviewRkiData.Commands;
 using OverviewRkiData.Components.LegacyData;
-using OverviewRkiData.Components.Ui.Eventbus;
+using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Components.UserSettings;
 using OverviewRkiData.Views.Base;
 using OverviewRkiData.Views.Main;
@@ -33,8 +33,8 @@ namespace OverviewRkiData
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Start the main view
-            EventbusManager.OpenView<MainView>(0);
-            EventbusManager.Send<MainView, BaseMessage>(new BaseMessage(BaseMessageOptions.LoadActualData), 0);
+            EventBusManager.OpenView<MainView>(0);
+            EventBusManager.Send<MainView, BaseMessage>(new BaseMessage(BaseMessageOptions.LoadActualData), 0);
         }
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Ui.Eventbus;
-using OverviewRkiData.Controls.FolderBrowser;
+using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Views.Dialog;
 using System;
 using System.Windows.Input;
@@ -9,7 +8,7 @@ namespace OverviewRkiData.Views.Setup
 {
     internal class ButtonCommandImportDataFromLegacyApplication : ICommand
     {
-        private SetupViewModel _viewModel;
+        private readonly SetupViewModel _viewModel;
 
         public ButtonCommandImportDataFromLegacyApplication(SetupViewModel viewModel) => this._viewModel = viewModel;
 
@@ -18,16 +17,16 @@ namespace OverviewRkiData.Views.Setup
         public bool CanExecute(object parameter) => true;
         public void Execute(object parameter)
         {
-            if (EventbusManager.IsViewOpen<DialogView>(10))
+            if (EventBusManager.IsViewOpen<DialogView>(10))
             {
                 return;
             }
 
-            EventbusManager.OpenView<DialogView>(10);
+            EventBusManager.OpenView<DialogView>(10);
 
             var ddc = new DataDialogContent();
             ddc.Header = "Folder Browser";
-            EventbusManager.Send<DialogView, BaseMessage>(new BaseMessage(ddc), 10);
+            EventBusManager.Send<DialogView, BaseMessage>(new BaseMessage(ddc), 10);
         }
     }
 }

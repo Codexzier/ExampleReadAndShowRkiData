@@ -1,5 +1,5 @@
 ﻿using OverviewRkiData.Commands;
-using OverviewRkiData.Components.Ui.Eventbus;
+using OverviewRkiData.Components.Ui.EventBus;
 using OverviewRkiData.Views.Main;
 using System;
 using System.Windows.Input;
@@ -8,7 +8,7 @@ namespace OverviewRkiData.Views.Menu
 {
     internal class ButtonCommandOpenMain : ICommand
     {
-        private MenuViewModel _viewModel;
+        private readonly MenuViewModel _viewModel;
 
         public ButtonCommandOpenMain(MenuViewModel viewModel) => this._viewModel = viewModel;
 
@@ -18,14 +18,14 @@ namespace OverviewRkiData.Views.Menu
 
         public void Execute(object parameter)
         {
-            if (EventbusManager.IsViewOpen(typeof(MainView), 0))
+            if (EventBusManager.IsViewOpen(typeof(MainView), 0))
             {
                 return;
             }
 
-            EventbusManager.OpenView<MainView>(0);
-            this._viewModel.ViewOpened = EventbusManager.GetViewOpened(0);
-            EventbusManager.Send<MainView, BaseMessage>(new BaseMessage(""), 0);
+            EventBusManager.OpenView<MainView>(0);
+            this._viewModel.ViewOpened = EventBusManager.GetViewOpened(0);
+            EventBusManager.Send<MainView, BaseMessage>(new BaseMessage(""), 0);
         }
     }
 }

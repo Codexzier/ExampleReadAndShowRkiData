@@ -15,7 +15,7 @@ namespace OverviewRkiData.Controls.FolderBrowser
         }
 
         public string CompletePath => this._path;
-        public string Foldername
+        public string FolderName
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿<Window xmlns:Eventbus="clr-namespace:OverviewRkiData.Components.Ui.Eventbus"  
+﻿<Window xmlns:Eventbus="clr-namespace:OverviewRkiData.Components.Ui.EventBus"  
         x:Class="OverviewRkiData.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
