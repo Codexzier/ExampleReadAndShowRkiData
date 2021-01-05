@@ -17,6 +17,7 @@ namespace OverviewRkiData.Views.Setup
 
             this._viewModel.CommandLoadRkiDataByApplicationStart = new CheckBoxCommandLoadRkiDataByApplicationStart(this._viewModel);
             this._viewModel.CommandImportDataFromLegacyApplication = new ButtonCommandImportDataFromLegacyApplication(this._viewModel);
+            this._viewModel.CommandLoadRkiData = new ButtonCommandLoadRkiData(this._viewModel);
         }
 
         public override void OnApplyTemplate()
