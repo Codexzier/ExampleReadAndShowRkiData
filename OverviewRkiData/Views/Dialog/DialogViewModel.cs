@@ -1,15 +1,24 @@
 ﻿using OverviewRkiData.Views.Base;
 using System.Windows.Input;
+using OverviewRkiData.Controls.FolderBrowser;
 
 namespace OverviewRkiData.Views.Dialog
 {
     internal class DialogViewModel : BaseViewModel
     {
         private string _header;
-        private ICommand _buttonClickCloseDialogView = new DoCloseDialogView();
+        private ICommand _commandCloseDialogView = new DoCloseDialogView();
         private ICommand _commandSelectedPathDialogAccept;
-        private string _selectedDirectoryPath = string.Empty;
+        private SelectedDirectory _selectedDirectoryPath = new SelectedDirectory();
 
+        public DialogViewModel()
+        {
+            //this._selectedDirectoryPath.FolderNameHasChangedEvent += (string folderName) =>
+            //{
+            //    this._selectedDirectoryPath.FolderName = folderName;
+            //};
+        }
+        
         public string Header
         {
             get => this._header; set
@@ -19,12 +28,12 @@ namespace OverviewRkiData.Views.Dialog
             }
         }
 
-        public ICommand ButtonClickCloseDialogView
+        public ICommand CommandCloseDialogView
         {
-            get => this._buttonClickCloseDialogView; set
+            get => this._commandCloseDialogView; set
             {
-                this._buttonClickCloseDialogView = value;
-                this.OnNotifyPropertyChanged(nameof(this.ButtonClickCloseDialogView));
+                this._commandCloseDialogView = value;
+                this.OnNotifyPropertyChanged(nameof(this.CommandCloseDialogView));
             }
         }
 
@@ -38,7 +47,7 @@ namespace OverviewRkiData.Views.Dialog
             }
         }
 
-        public string SelectedDirectoryPath
+        public SelectedDirectory SelectedDirectoryPath
         {
             get => this._selectedDirectoryPath;
             set

@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="textBoxCompleteFolderPath" Grid.Row="0" />
+        <TextBlock x:Name="TextBoxCompleteFolderPath" Grid.Row="0" />
         
         <ListBox Grid.Row="1" 
                  x:Name="ListBoxFolder" 
@@ -29,8 +29,8 @@
                  MouseDoubleClick="ListBoxFolder_MouseDoubleClick"
                  SelectionChanged="ListBoxFolder_SelectionChanged">
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="FolderBrowserItem">
-                    <TextBlock Text="{Binding Foldername}" />
+                <DataTemplate DataType="local:FolderBrowserItem">
+                    <TextBlock Text="{Binding FolderName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

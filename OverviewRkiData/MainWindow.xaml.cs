@@ -6,6 +6,7 @@ using OverviewRkiData.Views.Base;
 using OverviewRkiData.Views.Main;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace OverviewRkiData
 {
@@ -42,7 +43,6 @@ namespace OverviewRkiData
         /// </summary>
         private void LoadApplicationSize(SettingsFile setting)
         {
-
             var size = new System.Drawing.Size(setting.SizeX, setting.SizeY);
 
             if (size.Width < 100)
@@ -70,15 +70,9 @@ namespace OverviewRkiData
                 return;
             }
 
-            if (Enum.TryParse(setting.ApplicationWindowState, out WindowState windowState))
-            {
-                this.WindowState = windowState;
-            }
-            else
-            {
-                // backup
-                this.WindowState = WindowState.Normal;
-            }
+            this.WindowState = Enum
+                .TryParse(setting.ApplicationWindowState, 
+                    out WindowState windowState) ? windowState : WindowState.Normal;
         }
 
         /// <summary>
@@ -121,6 +115,21 @@ namespace OverviewRkiData
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount >= 2)
+            {
+                if (this.WindowState == WindowState.Normal)
+                {
+                    this.WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Normal;
+                }
+            }
         }
     }
 }

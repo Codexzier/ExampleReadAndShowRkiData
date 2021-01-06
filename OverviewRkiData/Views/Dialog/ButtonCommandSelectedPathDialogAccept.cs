@@ -5,7 +5,7 @@ namespace OverviewRkiData.Views.Dialog
 {
     internal class ButtonCommandSelectedPathDialogAccept : ICommand
     {
-        private DialogViewModel _viewModel;
+        private readonly DialogViewModel _viewModel;
 
         public ButtonCommandSelectedPathDialogAccept(DialogViewModel viewModel) => this._viewModel = viewModel;
 
@@ -14,6 +14,8 @@ namespace OverviewRkiData.Views.Dialog
         public bool CanExecute(object parameter) => true;
         public void Execute(object parameter)
         {
+            // TODO: setup the importer
+            var selectedFolder = this._viewModel.SelectedDirectoryPath.FolderName;
         }
     }
 }

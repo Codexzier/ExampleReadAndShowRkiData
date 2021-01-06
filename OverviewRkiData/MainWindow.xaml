@@ -10,7 +10,8 @@
         Height="400" Width="600" MinHeight="400" MinWidth="600"
         Loaded="Window_Loaded" 
         WindowStartupLocation="Manual" 
-        Closing="Window_Closing">
+        Closing="Window_Closing" 
+        WindowStyle="None">
     <Grid Background="{StaticResource BrushMonochromatischGreen_D}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -24,17 +25,16 @@
         <Grid Grid.Column="0" 
               Grid.ColumnSpan="2" 
               Background="{StaticResource BrushMonochromatischGreen_E}"
-              MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-            <Button HorizontalAlignment="Right" 
-                    Content="X" 
-                    Width="20" 
-                    Height="20" 
+              MouseLeftButtonDown="Grid_MouseLeftButtonDown" PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown">
+            <Button HorizontalAlignment="Right"
+                    Width="18" 
+                    Height="18" 
+                    Style="{StaticResource ButtonClose}"
                     ToolTip="Close application" 
-                    Visibility="Collapsed"
                     Click="ButtonClose_Click" />
         </Grid>
         
-        <menu:MenuView Grid.Row="1" Grid.ColumnSpan="2" />
+        <menu:MenuView Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" />
         <Eventbus:SideHostControl Grid.Row="2"
                                   Grid.Column="0" 
                                   HorizontalAlignment="Stretch" 
@@ -48,7 +48,7 @@
 
         <Eventbus:SideHostControl Grid.Row="0" 
                                   Grid.RowSpan="3" 
-                                  Grid.ColumnSpan="2" 
+                                  Grid.ColumnSpan="2" Grid.Column="0"
                                   HorizontalAlignment="Stretch" 
                                   Channel="10" 
                                   VerticalAlignment="Stretch" />

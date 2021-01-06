@@ -83,7 +83,70 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Button" BasedOn="{StaticResource ButtonTemplateBase}">
+    <Style TargetType="Button" BasedOn="{StaticResource ButtonTemplateBase}" />
+
+    
+    <!--Specials button-->
+
+    <!-- base icon settings -->
+    <Style x:Key="PathIconBase" TargetType="Path">
+        <Setter Property="Width" Value="14" />
+        <Setter Property="Height" Value="14" />
+        <Setter Property="Stretch" Value="Fill"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Fill" Value="{StaticResource BrushMonochromatischGreen_A}"/>
+    </Style>
+
+    <!-- close icon -->
+    <Style x:Key="PathIconClose" TargetType="Path" BasedOn="{StaticResource PathIconBase}">
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Height" Value="12" />
+        <Setter Property="Data"
+                Value="M11.164856,0 L40.937775,29.772919 70.710693,0 81.875549,11.164841 52.102631,40.937759 81.875549,70.710678 70.710693,81.875519 40.937775,52.1026 11.164856,81.875519 0,70.710678 29.772919,40.937759 0,11.164841 z" />
+    </Style>
+
+    <!-- Icon Base Button  -->
+    <Style x:Key="ButtonIconBase" TargetType="Button" >
+
+        <Setter Property="Content" Value="{StaticResource PathIconNewStyle}" />
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+                    <Viewbox Width="{Binding RelativeSource={RelativeSource Self}, Path=Width}"
+                             Height="{Binding RelativeSource={RelativeSource Self}, Path=Height}" 
+                             Margin="3">
+                        <Border x:Name="Border" 
+                                BorderBrush="{StaticResource BrushMonochromatischGreen_A}" 
+                                BorderThickness="1">
+                            <Path x:Name="pathIcon" Style="{TemplateBinding Content}" />
+                        </Border>
+                    </Viewbox>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="DodgerBlue" />
+                            <Setter TargetName="pathIcon" Property="Fill" Value="DeepSkyBlue" />
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Blue" />
+                            <Setter TargetName="pathIcon" Property="Fill" Value="LightSkyBlue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="LightBlue" />
+                            <Setter TargetName="pathIcon" Property="Fill" Value="LightCyan" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Close button -->
+    <Style x:Key="ButtonClose" TargetType="Button" BasedOn="{StaticResource ButtonIconBase}">
+        <Setter Property="Content" Value="{StaticResource PathIconClose}" />
     </Style>
 
 </ResourceDictionary>

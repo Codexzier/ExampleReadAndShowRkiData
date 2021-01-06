@@ -33,12 +33,12 @@
         </Grid.RowDefinitions>
 
         <!-- Noch nicht fertig, um aus dem Dialog das Verzeichnis auszuwählen -->
-        <!--<TextBlock Grid.Row="0" Grid.Column="0" 
+        <TextBlock Grid.Row="0" Grid.Column="0" 
                    TextWrapping="Wrap" 
                    Text="Importieren aus alt Anwendung (ExampleReadAndShowRkiData)" />
         <Button Grid.Row="0" Grid.Column="1" 
                 Content="Choose Folder"
-                Command="{Binding CommandImportDataFromLegacyApplication}"/>-->
+                Command="{Binding CommandImportDataFromLegacyApplication}"/>
 
         <TextBlock Grid.Row="1" Grid.Column="0" 
                    TextWrapping="Wrap"

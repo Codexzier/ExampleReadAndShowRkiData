@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,18 +13,27 @@ namespace OverviewRkiData.Controls.FolderBrowser
     /// </summary>
     public partial class FolderBrowserControl : UserControl
     {
-        public string SelectedDirectoryPath
-        {
-            get => this.GetValue(SelectedDirectoryPathProperty).ToString();
-            set => this.SetValue(SelectedDirectoryPathProperty, value);
-        }
+        //public string SelectedDirectoryPath
+        //{
+        //    get => this.GetValue(SelectedDirectoryPathProperty).ToString();
+        //    set => this.SetValue(SelectedDirectoryPathProperty, value);
+        //}
 
-        public static readonly DependencyProperty SelectedDirectoryPathProperty =
-            DependencyProperty.RegisterAttached(
-                nameof(SelectedDirectoryPath),
-                typeof(string),
-                typeof(FolderBrowserControl),
-                new PropertyMetadata(string.Empty));
+        //public static readonly DependencyProperty SelectedDirectoryPathProperty =
+        //    DependencyProperty.RegisterAttached(
+        //        nameof(SelectedDirectoryPath),
+        //        typeof(string),
+        //        typeof(FolderBrowserControl),
+        //        new PropertyMetadata(string.Empty));
+
+        public static readonly DependencyProperty SelectedDirectoryProperty = DependencyProperty.Register(
+            "SelectedDirectory", typeof(SelectedDirectory), typeof(FolderBrowserControl), new PropertyMetadata(default(SelectedDirectory)));
+
+        public SelectedDirectory SelectedDirectory
+        {
+            get => (SelectedDirectory) this.GetValue(SelectedDirectoryProperty);
+            set => this.SetValue(SelectedDirectoryProperty, value);
+        }
 
         public FolderBrowserControl() => this.InitializeComponent();
 
@@ -31,46 +41,71 @@ namespace OverviewRkiData.Controls.FolderBrowser
 
         private void LoadCurrentFolder(string currentDirectory)
         {
-            var list = new List<FolderBrowserItem>
+            var list = new List<FolderBrowserItem>();
+
+            if(!this._filters.All(a => a.Invoke(new DirectoryInfo(currentDirectory))))
             {
-                new FolderBrowserItem(currentDirectory, true)
+                var d = new FolderBrowserItem(currentDirectory, true);
+                if (!string.IsNullOrEmpty(d.FolderName))
+                {
+                    list.Add(d);
+                }
             };
 
-            foreach (var item in Directory.GetDirectories(currentDirectory))
-            {
-                list.Add(new FolderBrowserItem(item));
-            }
+            var folderNames = this.FilterFolders(
+                Directory.GetDirectories(currentDirectory));
+
+            list.AddRange(folderNames.Select(item => new FolderBrowserItem(item)).Where(ddd => !string.IsNullOrEmpty(ddd.FolderName)));
 
             this.ListBoxFolder.ItemsSource = list;
         }
 
+        private readonly IList<Func<DirectoryInfo, bool>> _filters = new List<Func<DirectoryInfo, bool>>
+        {
+            diInfo => string.IsNullOrEmpty(diInfo.Name),
+            diInfo => diInfo.Name.StartsWith("$"),
+            diInfo => diInfo.Name.ToLower().EndsWith(".bin"),
+            diInfo => diInfo.Parent == null
+        };
+
+        private IEnumerable<string> FilterFolders(IEnumerable<string> folders) =>
+            folders.Where(w =>
+            {
+                var directoryInfo = new DirectoryInfo(w);
+                return this._filters.All(filter => !filter.Invoke(directoryInfo));
+            });
+        
         private void ListBoxFolder_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (this.ListBoxFolder.SelectedItem is FolderBrowserItem item)
+            if (!(this.ListBoxFolder.SelectedItem is FolderBrowserItem item))
             {
-                if (item.ReturnFolderItem)
+                return;
+            }
+            
+            if (item.ReturnFolderItem)
+            {
+                var di = new DirectoryInfo(item.CompletePath);
+                if (di.Parent == null)
                 {
-                    var di = new DirectoryInfo(item.CompletePath);
-                    if (di.Parent == null)
-                    {
-                        return;
-                    }
-
-                    this.LoadCurrentFolder(di.Parent.FullName);
                     return;
                 }
 
-                this.LoadCurrentFolder(item.CompletePath);
+                this.LoadCurrentFolder(di.Parent.FullName);
+                return;
             }
+
+            this.LoadCurrentFolder(item.CompletePath);
         }
 
         private void ListBoxFolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.ListBoxFolder.SelectedItem is FolderBrowserItem item)
+            if (!(this.ListBoxFolder.SelectedItem is FolderBrowserItem item))
             {
-                this.textBoxCompleteFolderPath.Text = item.CompletePath;
-                this.SelectedDirectoryPath = item.CompletePath;
+                return;
             }
+
+            this.TextBoxCompleteFolderPath.Text = item.CompletePath;
+            this.SelectedDirectory.FolderName = item.CompletePath;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace OverviewRkiData.Views.Setup
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter) => true;
+
         public void Execute(object parameter)
         {
             if (EventBusManager.IsViewOpen<DialogView>(10))
@@ -24,8 +25,10 @@ namespace OverviewRkiData.Views.Setup
 
             EventBusManager.OpenView<DialogView>(10);
 
-            var ddc = new DataDialogContent();
-            ddc.Header = "Folder Browser";
+            var ddc = new DataDialogContent
+            {
+                Header = "Folder Browser"
+            };
             EventBusManager.Send<DialogView, BaseMessage>(new BaseMessage(ddc), 10);
         }
     }
