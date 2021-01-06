@@ -25,6 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 
             <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
@@ -44,5 +45,13 @@
                    TextWrapping="Wrap"
                    Text="Beim Start der Anwendung, versuchen die aktuellen Daten zu laden." />
         <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding LoadRkiDataByApplicationStart}" Command="{Binding CommandLoadRkiDataByApplicationStart}" />
+
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   TextWrapping="Wrap"
+                   Text="Aktuelle Daten laden. (Überschreibt den Tag, wenn der gespeicherte Daten in der Vergangenheit liegen)" />
+
+        <Button Grid.Row="2" Grid.Column="1"
+                Content="Lade Daten" 
+                Command="{Binding CommandLoadRkiData}"/>
     </Grid>
 </UserControl>

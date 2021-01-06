@@ -8,6 +8,7 @@ namespace OverviewRkiData.Views.Setup
         private bool _loadRkiDataByApplicationStart;
         private ICommand _commandLoadRkiDataByApplicationStart;
         private ICommand _commandImportDataFromLegacyApplication;
+        private ICommand _commandLoadRkiData;
 
         public bool LoadRkiDataByApplicationStart
         {
@@ -36,6 +37,16 @@ namespace OverviewRkiData.Views.Setup
             {
                 this._commandImportDataFromLegacyApplication = value;
                 this.OnNotifyPropertyChanged(nameof(this.CommandImportDataFromLegacyApplication));
+            }
+        }
+
+        public ICommand CommandLoadRkiData
+        {
+            get => this._commandLoadRkiData;
+            set
+            {
+                this._commandLoadRkiData = value;
+                this.OnNotifyPropertyChanged(nameof(this.CommandLoadRkiData));
             }
         }
     }

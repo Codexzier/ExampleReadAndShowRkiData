@@ -19,11 +19,12 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
 
         public static RkiCoronaLandkreiseComponent GetInstance() => _singleton ??= new RkiCoronaLandkreiseComponent();
 
-        public Landkreise LoadData()
+        public Landkreise LoadData(bool loadForceFromInternet = false)
         {
             var filename = HelperExtension.CreateFilename();
 
-            if (!UserSettingsLoader.GetInstance().Load().LoadRkiDataByApplicationStart)
+            if (!UserSettingsLoader.GetInstance().Load().LoadRkiDataByApplicationStart &&
+                !loadForceFromInternet)
             {
                 filename = GetLastLoadedData();
             }
@@ -35,6 +36,15 @@ namespace OverviewRkiData.Components.RkiCoronaLandkreise
                 {
                     return reload;
                 }
+            }
+
+            if(string.IsNullOrEmpty(filename))
+            {
+                return new Landkreise 
+                { 
+                    Date = DateTime.MinValue, 
+                    Districts = new List<Landkreis>()
+                };
             }
 
             var result = this.ConvertToLandkreise(this.LoadActualData());
