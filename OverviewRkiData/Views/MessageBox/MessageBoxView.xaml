@@ -28,7 +28,7 @@
 
         <Grid Grid.Column="1" 
               Grid.Row="1" 
-              Background="{StaticResource BrushMonochromatischGreen_E}" 
+              Background="{StaticResource BrushMonochromatischGreen_D}" 
               Width="500" 
               Height="350">
             <Grid.ColumnDefinitions>
@@ -38,20 +38,21 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="*" MinHeight="30" />
                 <RowDefinition Height="10" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" MaxHeight="140" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="1" 
                        Text="{Binding Title}"
                        FontSize="14"
                        FontWeight="Bold"
-                       Foreground="{StaticResource BrushMonochromatischGreen_C}"/>
+                       Foreground="{StaticResource BrushMonochromatischGreen_A}"/>
             <TextBlock Grid.Column="1" 
                        Grid.Row="1" 
                        Text="{Binding Message}"
                        Foreground="{StaticResource BrushMonochromatischGreen_C}"
+                       FontSize="16"
                        TextWrapping="Wrap"
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" />
@@ -60,7 +61,7 @@
                     Grid.Row="3" 
                     Content="OK" 
                     HorizontalAlignment="Center" 
-                    MinWidth="100" 
+                    Width="140"
                     Click="ButtonOk_Click" />
         </Grid>
     </Grid>

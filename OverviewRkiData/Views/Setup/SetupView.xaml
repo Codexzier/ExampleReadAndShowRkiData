@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OverviewRkiData.Views.Setup"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="500">
+             d:DesignHeight="350" d:DesignWidth="800">
     <UserControl.DataContext>
         <local:SetupViewModel />
     </UserControl.DataContext>
@@ -17,41 +17,46 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+    <Border  BorderBrush="{StaticResource BrushMonochromatischGreen_E}" BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MaxWidth="400" />
+                <ColumnDefinition Width="Auto" MaxWidth="400" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
-            <RowDefinition Height="10" />
-            <RowDefinition Height="Auto" />
-            
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
 
-        <!-- Noch nicht fertig, um aus dem Dialog das Verzeichnis auszuwählen -->
-        <TextBlock Grid.Row="0" Grid.Column="0" 
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Noch nicht fertig, um aus dem Dialog das Verzeichnis auszuwählen -->
+            <TextBlock Grid.Row="0" Grid.Column="0" 
                    TextWrapping="Wrap" 
                    Text="Importieren aus alt Anwendung (ExampleReadAndShowRkiData)" />
-        <Button Grid.Row="0" Grid.Column="1" 
+            <Button Grid.Row="0" Grid.Column="1" 
+                HorizontalAlignment="Left"
                 Content="Choose Folder"
                 Command="{Binding CommandImportDataFromLegacyApplication}"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" 
+            <TextBlock Grid.Row="1" Grid.Column="0" 
                    TextWrapping="Wrap"
                    Text="Beim Start der Anwendung, versuchen die aktuellen Daten zu laden." />
-        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding LoadRkiDataByApplicationStart}" Command="{Binding CommandLoadRkiDataByApplicationStart}" />
+            <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding LoadRkiDataByApplicationStart}" Command="{Binding CommandLoadRkiDataByApplicationStart}" />
 
-        <TextBlock Grid.Row="2" Grid.Column="0"
+            <TextBlock Grid.Row="2" Grid.Column="0"
                    TextWrapping="Wrap"
                    Text="Aktuelle Daten laden. (Überschreibt den Tag, wenn der gespeicherte Daten in der Vergangenheit liegen)" />
 
-        <Button Grid.Row="2" Grid.Column="1"
+            <Button Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Left"
                 Content="Lade Daten" 
                 Command="{Binding CommandLoadRkiData}"/>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

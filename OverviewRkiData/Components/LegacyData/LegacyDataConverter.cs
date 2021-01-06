@@ -10,12 +10,10 @@ namespace OverviewRkiData.Components.LegacyData
 {
     internal class LegacyDataConverter
     {
-        private readonly string _path = "C:\\Users\\johan\\OneDrive\\Anwendungen\\JPL WPF Demos\\ExampleRkiReader";
-
-        public void Run()
+        public int Run(string path)
         {
             var newComponent = RkiCoronaLandkreiseComponent.GetInstance();
-            var files = this.GetRkiFiles();
+            var files = this.GetRkiFiles(path).ToList();
 
             foreach (var item in files)
             {
@@ -23,7 +21,7 @@ namespace OverviewRkiData.Components.LegacyData
 
                 var date = legacyData.lastUpdate.RemoveTimeFromLastUpdateString();
 
-                var newFilename = $"{Environment.CurrentDirectory}/{HelperExtension.RkiFilename}-{date}.json";
+                var newFilename = $"{HelperExtension.SubFolderRkiData()}/{HelperExtension.RkiFilename}-{date}.json";
 
                 if (File.Exists(newFilename))
                 {
@@ -45,33 +43,17 @@ namespace OverviewRkiData.Components.LegacyData
 
                 newComponent.SaveToFile(landkreise, newFilename);
             }
+
+            return files.Count();
         }
 
-        private IEnumerable<string> GetRkiFiles()
+        private IEnumerable<string> GetRkiFiles(string path)
         {
             var files = Directory
-                .GetFiles(this._path)
+                .GetFiles(path)
                 .Where(w => w.Contains(HelperExtension.RkiFilename));
 
             return files;
         }
     }
-
-    public class LegacyDataFormat
-    {
-        public string lastUpdate { get; set; }
-        public IList<LegacyDistrictItem> districts { get; set; }
-    }
-    public class LegacyDistrictItem
-    {
-        public string name { get; set; }
-        public string county { get; set; }
-        public int count { get; set; }
-        public int deaths { get; set; }
-        public double weekIncidence { get; set; }
-        public double casesPer100k { get; set; }
-        public double casesPerPopulation { get; set; }
-        public string Date { get; internal set; }
-    }
-
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using OverviewRkiData.Views.Base;
 
 namespace OverviewRkiData.Controls.FolderBrowser
 {
@@ -13,25 +14,12 @@ namespace OverviewRkiData.Controls.FolderBrowser
     /// </summary>
     public partial class FolderBrowserControl : UserControl
     {
-        //public string SelectedDirectoryPath
-        //{
-        //    get => this.GetValue(SelectedDirectoryPathProperty).ToString();
-        //    set => this.SetValue(SelectedDirectoryPathProperty, value);
-        //}
-
-        //public static readonly DependencyProperty SelectedDirectoryPathProperty =
-        //    DependencyProperty.RegisterAttached(
-        //        nameof(SelectedDirectoryPath),
-        //        typeof(string),
-        //        typeof(FolderBrowserControl),
-        //        new PropertyMetadata(string.Empty));
-
         public static readonly DependencyProperty SelectedDirectoryProperty = DependencyProperty.Register(
             "SelectedDirectory", typeof(SelectedDirectory), typeof(FolderBrowserControl), new PropertyMetadata(default(SelectedDirectory)));
 
         public SelectedDirectory SelectedDirectory
         {
-            get => (SelectedDirectory) this.GetValue(SelectedDirectoryProperty);
+            get => (SelectedDirectory)this.GetValue(SelectedDirectoryProperty);
             set => this.SetValue(SelectedDirectoryProperty, value);
         }
 
@@ -43,7 +31,7 @@ namespace OverviewRkiData.Controls.FolderBrowser
         {
             var list = new List<FolderBrowserItem>();
 
-            if(!this._filters.All(a => a.Invoke(new DirectoryInfo(currentDirectory))))
+            if (!this._filters.All(a => a.Invoke(new DirectoryInfo(currentDirectory))))
             {
                 var d = new FolderBrowserItem(currentDirectory, true);
                 if (!string.IsNullOrEmpty(d.FolderName))
@@ -52,12 +40,19 @@ namespace OverviewRkiData.Controls.FolderBrowser
                 }
             };
 
-            var folderNames = this.FilterFolders(
-                Directory.GetDirectories(currentDirectory));
+            try
+            {
+                var folderNames = this.FilterFolders(
+                    Directory.GetDirectories(currentDirectory));
 
-            list.AddRange(folderNames.Select(item => new FolderBrowserItem(item)).Where(ddd => !string.IsNullOrEmpty(ddd.FolderName)));
+                list.AddRange(folderNames.Select(item => new FolderBrowserItem(item)).Where(ddd => !string.IsNullOrEmpty(ddd.FolderName)));
 
-            this.ListBoxFolder.ItemsSource = list;
+                this.ListBoxFolder.ItemsSource = list;
+            }
+            catch (Exception e)
+            {
+                SimpleStatusOverlays.Show("Fehler", e.Message);
+            }
         }
 
         private readonly IList<Func<DirectoryInfo, bool>> _filters = new List<Func<DirectoryInfo, bool>>
@@ -74,14 +69,14 @@ namespace OverviewRkiData.Controls.FolderBrowser
                 var directoryInfo = new DirectoryInfo(w);
                 return this._filters.All(filter => !filter.Invoke(directoryInfo));
             });
-        
+
         private void ListBoxFolder_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (!(this.ListBoxFolder.SelectedItem is FolderBrowserItem item))
             {
                 return;
             }
-            
+
             if (item.ReturnFolderItem)
             {
                 var di = new DirectoryInfo(item.CompletePath);
@@ -106,6 +101,12 @@ namespace OverviewRkiData.Controls.FolderBrowser
 
             this.TextBoxCompleteFolderPath.Text = item.CompletePath;
             this.SelectedDirectory.FolderName = item.CompletePath;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var str = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            this.LoadCurrentFolder(str);
         }
     }
 }
