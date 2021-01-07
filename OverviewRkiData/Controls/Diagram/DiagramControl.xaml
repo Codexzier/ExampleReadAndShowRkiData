@@ -15,5 +15,13 @@
                     FlowDirection="LeftToRight" 
                     HorizontalAlignment="Left" />
         </Border>
+
+        <Path x:Name="OneHundred" 
+              Width="30"
+              Data="M0,0L 10,0 z"
+              Stroke="{StaticResource BrushMonochromatischGreen_E}" 
+              StrokeThickness="2" 
+              HorizontalAlignment="Left" 
+              VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

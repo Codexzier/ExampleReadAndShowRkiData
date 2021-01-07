@@ -54,6 +54,9 @@ namespace OverviewRkiData.Controls.Diagram
             control.SimpleDiagram.Children.Clear();
 
             var heightScale = control.ActualHeight / 200d;
+
+            control.OneHundred.Margin = new Thickness(0, 0, 0, 100 / control.Scale * heightScale);
+
             var widthPerResult = control.ActualWidth / control.RkiCountyData.Count;
 
             int delay = 1;
