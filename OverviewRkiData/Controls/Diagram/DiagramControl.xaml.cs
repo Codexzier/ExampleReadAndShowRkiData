@@ -53,12 +53,13 @@ namespace OverviewRkiData.Controls.Diagram
 
             control.SimpleDiagram.Children.Clear();
 
+            var heightScale = control.ActualHeight / 200d;
             var widthPerResult = control.ActualWidth / control.RkiCountyData.Count;
 
             int delay = 1;
             foreach (var item in control.RkiCountyData)
             {
-                var heightValue = item.Value / control.Scale;
+                var heightValue = item.Value / control.Scale * heightScale;
 
                 var rect = new System.Windows.Shapes.Rectangle
                 {

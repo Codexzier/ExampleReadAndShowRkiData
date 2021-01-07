@@ -31,12 +31,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="10" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="10" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="tbDescription_Name" Grid.Column="0" Grid.Row="0" Text="Name" Opacity="0"/>
+            <TextBlock x:Name="tbDescription_Name" Grid.Column="0" Grid.Row="0" Text="Name" />
             <TextBlock x:Name="tbDescription_Deaths" Grid.Column="0" Grid.Row="1" Text="Deaths" />
             <TextBlock x:Name="tbDescription_WeekIncidence" Grid.Column="0" Grid.Row="2" Text="WeekIncidence" />
 
@@ -46,6 +46,7 @@
 
             <Controls1:DiagramControl Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" 
                                       RkiCountyData="{Binding CountyResults}" 
+                                      VerticalAlignment="Stretch"
                                       Scale="{Binding Path=Value, ElementName=slider}"/>
 
 
